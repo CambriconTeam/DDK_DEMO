@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.cambricon.productdisplay">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/AppTheme.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.NewsInfoActivity"/>
+        <activity
+            android:name=".activity.ClassificationActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SemanticsActivity"/>
+        <activity
+            android:name=".activity.DetectionActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.FaceDetectorActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.MoreFunctionsAct"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AboutActivity"/>
+        <activity
+            android:name=".activity.BaseActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.OffLineClassifiactionAct"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.OffLineDetectionAct"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.SimpleClassificationAct"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.SingleNetFuncAct"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.SingleChartActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".activity.IPUTest"/>
+    </application>
+
+</manifest>

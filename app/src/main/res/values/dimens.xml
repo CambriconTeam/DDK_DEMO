@@ -1,0 +1,23 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="btn_text_size">20sp</dimen>
+    <dimen name="param_padding_left">10dp</dimen>
+    <dimen name="param_padding_top">15dp</dimen>
+    <dimen name="param_padding_bottom">15dp</dimen>
+    <dimen name="img_padding_top">10dp</dimen>
+    <dimen name="img_padding_bottom">10dp</dimen>
+    <dimen name="guide_width">200dp</dimen>
+    <dimen name="switch_btn_width">20dp</dimen>
+    <dimen name="switch_btn_height">18dp</dimen>
+    <dimen name="switch_btn_paddingright">30dp</dimen>
+    <dimen name="text_padding">15dp</dimen>
+    <dimen name="text_chart_title">15sp</dimen>
+    <dimen name="action_bar_padding_top">52dp</dimen>
+    <dimen name="function_item_padding">10dp</dimen>
+    <dimen name="more_item_margin">4dp</dimen>
+    <dimen name="more_item_height">100dp</dimen>
+    <dimen name="more_function_text_title">16sp</dimen>
+    <dimen name="more_function_text_summary">12sp</dimen>
+</resources>

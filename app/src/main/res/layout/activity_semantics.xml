@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gridview_bg"
+    tools:context="com.cambricon.productdisplay.activity.SemanticsActivity"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/semantics_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/language"
+        android:layout_below="@id/semantics_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/news_item"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/language_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAllCaps="false"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="简体中文"
+            android:textColor="@color/test_background"
+            />
+
+        <TextView
+            android:id="@+id/news_line1"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/news_item_line"
+            android:layout_alignParentBottom="true"
+            />
+
+        <Button
+            android:id="@+id/change"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:background="@drawable/change"
+            android:textColor="@color/test_background"
+            />
+
+        <TextView
+            android:id="@+id/news_line2"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/news_item_line"
+            android:layout_alignParentBottom="true"
+            />
+
+        <Button
+            android:id="@+id/language_rigth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textAllCaps="false"
+            android:text="英语"
+            android:textColor="@color/test_background"
+            />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/language"
+        android:layout_weight="10"
+
+        />
+
+    <RelativeLayout
+        android:id="@+id/speechLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/Voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/speech"/>
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

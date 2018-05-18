@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="grid_view_text">
+        <item>@string/gv_text_item1</item>
+        <item>@string/gv_text_item2</item>
+        <item>@string/gv_text_item3</item>
+        <item>@string/gv_text_item4</item>
+    </string-array>
+
+    <string-array name="about_list_title">
+        <item>官网</item>
+        <item>简历投递</item>
+        <item>商务合作</item>
+        <item>媒体垂询</item>
+        <item>新浪微博</item>
+        <item>微信公众号</item>
+    </string-array>
+
+    <string-array name="about_list_summary">
+        <item>http://www.cambricon.com</item>
+        <item>hr@cambricon.com</item>
+        <item>business@cambricon.com</item>
+        <item>media@cambricon.com</item>
+        <item>cambricon</item>
+        <item>cambricon</item>
+    </string-array>
+    <string-array name="more_functions">
+        <item>图片分类（加层IPU）</item>
+        <item>目标检测（加层IPU）</item>
+        <item>单层性能比较</item>
+    </string-array>
+    <string-array name="more_functions_summary">
+        <item>加层网络离线模型图片分类，效率高，正确率高</item>
+        <item>加层网络离线模型目标检测，效率高，正确率高</item>
+        <item>单层CPU在线，IPU在线，IPU离线模式性能比较</item>
+    </string-array>
+    <integer-array name="more_function_img">
+        <item>@mipmap/more1</item>
+        <item>@mipmap/more3</item>
+        <item>@mipmap/more2</item>
+        <item>@mipmap/more5</item>
+        <item>@mipmap/more4</item>
+    </integer-array>
+   <integer-array name="more_function_bgcolor">
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+    </integer-array>
+
+    <!--<color name="more_function_bgcolor">
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
+    </color>-->
+
+</resources>

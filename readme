@@ -1,0 +1,29 @@
+注意事项：
+一.关键代码需要添加注释，格式统一如下：
+方法注释如下：
+    /**
+     * toolBar返回按钮
+     * @param item
+     * @return
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        ...
+        return super.onOptionsItemSelected(item);
+    }
+
+方法内调用或者属性注释如下：（也可以使用双斜杠//）
+    public void setToolbar(){
+        toolbar.setTitle(R.string.gv_text_item1);
+        setSupportActionBar(toolbar);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    /*创建一个Drawerlayout和Toolbar联动的开关*/
+    private ActionBarDrawerToggle toggle;
+
+二.功能尽量独立，方便阅读和后期维护
+三.属性名，方法名，布局名等等各种命名寓意清晰
+四.关于全局用的文件路径，及测试图片信息全部配置到Config.java，方便后期维护更改
+
+此注意事项持续完善中...

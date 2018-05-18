@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".activity.HomeActivity">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/mydrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--主内容区域-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/main_line"
+                app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+            </android.support.v7.widget.Toolbar>
+
+            <RadioGroup
+                android:id="@+id/rel_navigate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/home_background"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/tab_test"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@mipmap/testing"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/home_tab_test"
+                    android:textColor="@color/main_line"/>
+
+                <RadioButton
+                    android:id="@+id/tab_data"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@mipmap/statistics"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/home_tab_db"
+                    android:textColor="@color/home_text_color"/>
+
+                <RadioButton
+                    android:id="@+id/tab_adv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@mipmap/infomation"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/home_tab_adv"
+                    android:textColor="@color/home_text_color"/>
+            </RadioGroup>
+
+            <FrameLayout
+                android:id="@+id/main_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/rel_navigate"
+                android:paddingTop="?attr/actionBarSize">
+            </FrameLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_menu"
+            android:layout_width="281dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#ff256ce0"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/header_drawer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@color/main_line"
+                android:src="@mipmap/logo"
+                />
+
+            <RelativeLayout
+                android:id="@+id/cpu_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/header_drawer"
+                android:layout_marginTop="21dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32.5dp"
+                    android:src="@mipmap/cpu"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="70dp"
+                    android:text="CPU模式"
+                    android:textColor="@color/news_item"
+                    android:textSize="16dp"/>
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/cpu_mode_switchbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="@dimen/switch_btn_paddingright"
+                    app:kswBackColor="@color/news_item_line"
+                    app:kswThumbHeight="@dimen/switch_btn_height"
+                    app:kswThumbWidth="@dimen/switch_btn_width"
+                    app:kswTintColor="@color/test_text_color"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ipu_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cpu_mode"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32.5dp"
+                    android:src="@mipmap/ipu"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="70dp"
+                    android:text="IPU模式"
+                    android:textColor="@color/news_item"
+                    android:textSize="16dp"/>
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/ipu_mode_switchbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="@dimen/switch_btn_paddingright"
+                    app:kswBackColor="@color/news_item_line"
+                    app:kswThumbHeight="@dimen/switch_btn_height"
+                    app:kswThumbWidth="@dimen/switch_btn_width"
+                    app:kswTintColor="@color/test_text_color"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ipu_mode"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32.5dp"
+                    android:src="@mipmap/about"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:text="关于我们"
+                    android:textColor="@color/news_item"
+                    android:textSize="16dp"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

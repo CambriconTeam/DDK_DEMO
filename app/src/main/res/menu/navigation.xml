@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/single_1"
+            android:icon="@drawable/dl_settings"
+            android:title="CPU" />
+        <item
+            android:id="@+id/single_2"
+            android:icon="@drawable/dl_settings"
+            android:title="GPU" />
+        <item
+            android:id="@+id/single_3"
+            android:icon="@drawable/dl_settings"
+            android:title="关于我们" />
+    </group>
+
+</menu>

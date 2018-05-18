@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@mipmap/cf_layout_bg"
+              android:orientation="vertical"
+              tools:context="com.cambricon.productdisplay.activity.SingleChartActivity">
+
+    <!--<LinearLayout
+        android:id="@+id/chart_fee_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>-->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/single_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="test"
+                android:textColor="@color/test_text_color"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/on_cpu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/btn_bg"
+                android:text="@string/single_on_cpu"
+                android:textColor="@color/test_text_color"
+                android:textSize="@dimen/btn_text_size"/>
+
+            <Button
+                android:id="@+id/on_ipu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@mipmap/btn_bg"
+                android:text="@string/single_on_ipu"
+                android:textColor="@color/test_text_color"
+                android:textSize="@dimen/btn_text_size"/>
+
+            <Button
+                android:id="@+id/off_ipu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@mipmap/btn_bg"
+                android:text="@string/single_off_ipu"
+                android:textColor="@color/test_text_color"
+                android:textSize="@dimen/btn_text_size"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:background="@mipmap/image_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/single_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:background="@color/news_item"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:visibility="gone">
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/back_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:background="@color/test_text_color"
+                android:scaleType="fitXY"
+                android:src="@mipmap/classification_bg"/>
+
+            <ProgressBar
+                android:id="@+id/ipu_progress_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progressbar"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/text_describe"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/text_bg"
+                android:paddingLeft="@dimen/param_padding_left"
+                android:paddingRight="@dimen/param_padding_left"
+                android:paddingTop="@dimen/param_padding_left"
+                android:text="@string/single_describle"
+                android:textColor="@color/test_text_color"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

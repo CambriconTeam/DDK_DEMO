@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SwitchButton">
+        <attr name="defaultStatus">
+            <enum name="open" value="1"/>
+            <enum name="close" value="0"/>
+        </attr>
+    </declare-styleable>
+</resources>

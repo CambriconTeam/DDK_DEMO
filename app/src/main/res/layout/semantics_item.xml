@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+    >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/news_item">
+
+        <TextView
+            android:id="@+id/resourse"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:text="清理垃圾"
+            />
+
+        <TextView
+            android:id="@+id/translate"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resourse"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Clean up the garbage"
+            android:textColor="@color/test_background"
+            android:layout_marginBottom="5dp"
+            />
+
+        <ImageView
+            android:id="@+id/horn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/hornplay"
+            />
+
+        <TextView
+            android:id="@+id/voiceUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
+
+
+    </RelativeLayout>
+</RelativeLayout>

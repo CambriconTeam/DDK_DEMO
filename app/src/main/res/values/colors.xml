@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="test_background">#292421</color>
+    <color name="news_item_touch">#eeeeee</color>
+    <color name="news_item">#ffffff</color>
+    <color name="news_item_line">#AAAAAA</color>
+    <color name="main_line">#256CE0</color>
+    <color name="gridview_bg">#DCDCDC</color>
+    <color name="Color_red">#FF0000</color>
+    <color name="home_background">#EFEFEF</color>
+    <color name="menu_background">#256CE0</color>
+    <color name="gray">#256CE0</color>
+    <color name="test_text_color">#82F0EE</color>
+    <color name="home_text_color">#484848</color>
+    <color name="more_function_item">#F0FFFF</color>
+    <color name="green">#7FFFAA</color>
+    <color name="fun_background">#000099</color>
+    <color name="single_chart_bg">#F0FFFF</color>
+    <color name="single_chart_blue">#006633</color>
+    <color name="single_chart_white">#33FFCC</color>
+    <color name="single_chart_green">#33CC66</color>
+
+    <color name="more_bgcolor_color1">#285DE0</color>
+    <color name="more_bgcolor_color2">#3070D6</color>
+    <color name="more_bgcolor_color3">#2CD2DB</color>
+    <color name="more_bgcolor_color4">#672ADD</color>
+    <color name="more_bgcolor_color5">#285DE0</color>
+
+</resources>

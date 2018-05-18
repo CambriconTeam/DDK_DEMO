@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+
+        android:background="@color/gridview_bg" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="@string/off_classify_chart_title"
+        android:textColor="@color/main_line"
+        android:textSize="@dimen/text_chart_title" />
+
+    <LinearLayout
+        android:id="@+id/offchart_line"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
+</LinearLayout>
+
