@@ -81,11 +81,9 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
     private static float TARGET_WIDTH;
     private static float TARGET_HEIGHT;
     private File imageFile = new File(Config.sdcard, Config.imageName[0]);
-    Timer timer = new Timer();
 
     //offline ipu
     private OffLineCaffeClassification offLineCaffeClassification;
-    private AssetManager mgr;
     private static final int USING_SYNC = 1;
     private String predictedClass = "none";
     private static final int RESIZED_WIDTH = 227;
@@ -142,7 +140,6 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
         ipu_progress = findViewById(R.id.ipu_progress);
         ipu_text_pro = findViewById(R.id.ipu_pro_text);
         offLineCaffeClassification = new OffLineCaffeClassification();
-        mgr = getResources().getAssets();
     }
 
     public void initLabels() {
