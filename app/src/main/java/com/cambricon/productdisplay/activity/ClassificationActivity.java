@@ -251,7 +251,7 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    int ret = offLineCaffeClassification.loadModelSync(mgr);
+                    int ret = offLineCaffeClassification.loadModelSyncFromSdcard();
                     if (0 == ret) {
                         //isModelSyncLoaded = true;
                         runOnUiThread(new Runnable() {

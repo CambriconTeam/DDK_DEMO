@@ -12,7 +12,7 @@ public class OffLineCaffeClassification {
     }
     public static native int loadModelSync(AssetManager mgr);
 
-    //public static native int loadModelSyncFromSdcard();
+    public static native int loadModelSyncFromSdcard();
 
     public static native String runModelSync(float[] buf);
 
