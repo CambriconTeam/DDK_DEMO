@@ -76,6 +76,17 @@ set_target_properties(
     PROPERTIES IMPORTED_LOCATION
     ${CMAKE_CURRENT_LIST_DIR}/src/main/jniLibs/${ANDROID_ABI}/libhiaiddk.so
     )
+
+add_library(
+    hiaidetecte
+    SHARED
+    IMPORTED
+    )
+set_target_properties(
+    hiaidetecte
+    PROPERTIES IMPORTED_LOCATION
+    ${CMAKE_CURRENT_LIST_DIR}/src/main/jniLibs/${ANDROID_ABI}/libhiaidetecte.so
+    )
 #huangyaling add 2018.01.31 end
 
 add_library(
@@ -105,6 +116,7 @@ set_target_properties(
 target_link_libraries( # Specifies the target library.
                        native-lib
                        hiaiddk
+                       hiaidetecte
                        caffe_jni
                        detecte_jni
                        face_jni

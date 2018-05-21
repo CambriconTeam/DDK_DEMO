@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.cambricon.productdisplay.R;
 import com.cambricon.productdisplay.bean.DetectionImage;
 import com.cambricon.productdisplay.caffenative.CaffeDetection;
+import com.cambricon.productdisplay.caffenative.OfflineDetecte;
 import com.cambricon.productdisplay.db.DetectionDB;
 import com.cambricon.productdisplay.task.CNNListener;
 import com.cambricon.productdisplay.utils.Config;
@@ -77,7 +78,12 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
 
     private static final String FASTRCNN = "Fast-RCNN";
     private static final String RESNET50 = "ResNet50";
-    private int[] mPostTime;
+
+    //huangyaling add for offline ipu mode begin
+    private OfflineDetecte offlineDetecte;
+    private static final int USING_SYNC = 1;
+    private boolean isModelSyncLoaded = false;
+    //huangyaling add for offline ipu mode end
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,14 +92,6 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.classification_layout);
         init();
         setActionBar();
-        if (!Config.getIsCPUMode(DetectionActivity.this)) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    RootUtil.getRoot(getPackageCodePath());
-                }
-            }).start();
-        }
     }
 
     private void init() {
@@ -123,6 +121,7 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
         detectionDB.open();
 
         caffeDetection = new CaffeDetection();
+        offlineDetecte=new OfflineDetecte();
     }
 
     /**
@@ -149,7 +148,7 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.classification_begin:
-                    CPUDetect();
+                testDetect();
                 break;
             case R.id.classification_end:
                 testPro.setText(getString(R.string.detection_pasue_guide));
@@ -162,7 +161,7 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    private void CPUDetect() {
+    private void testDetect() {
         Log.i("DetectionActivity", "CPU Detect");
         function_text.setVisibility(View.GONE);
         testPro.setText(getString(R.string.detection_begin_guide));
@@ -181,22 +180,48 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
         Message msg = new Message();
         msg.what = START_LOAD_DETECT;
         handler.sendMessage(msg);
+        if(Config.getIsCPUMode(getApplicationContext())){
+            long startTime = SystemClock.uptimeMillis();
+            caffeDetection.setNumThreads(4);
+            Log.e(TAG, "loadModel: " + Config.getIsCPUMode(DetectionActivity.this));
+            caffeDetection.loadModel(Config.dModelProto_FRC, Config.dModelBinary_FRC, Config.getIsCPUMode(DetectionActivity.this));
+            caffeDetection.setMean(Config.dModelMean);
 
-        long startTime = SystemClock.uptimeMillis();
-        caffeDetection.setNumThreads(4);
-        Log.e(TAG, "loadModel: " + Config.getIsCPUMode(DetectionActivity.this));
-        //caffeDetection.loadModel(Config.dModelProto, Config.dModelBinary, Config.getIsCPUMode(DetectionActivity.this));
-        caffeDetection.loadModel(Config.dModelProto_FRC, Config.dModelBinary_FRC, Config.getIsCPUMode(DetectionActivity.this));
-        caffeDetection.setMean(Config.dModelMean);
+            loadDTime = SystemClock.uptimeMillis() - startTime;
 
-        loadDTime = SystemClock.uptimeMillis() - startTime;
-
-        Config.isFastRCNN = false;
-        Config.isResNet50 = true;
-        if (loadDTime > 100) {
-            Config.loadDetecteTime = loadDTime;
+            Config.isFastRCNN = false;
+            Config.isResNet50 = true;
+            if (loadDTime > 100) {
+                Config.loadDetecteTime = loadDTime;
+            }
+        }else{
+            if(!isModelSyncLoaded){
+                isModelSyncLoaded=false;
+                offlineDetecte.createModelClient(USING_SYNC);
+                Log.e("huangyaling","create model client");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int ret = offlineDetecte.loadModelSyncFromSdcard();
+                        if (0 == ret) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(DetectionActivity.this, "load model sync success.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(DetectionActivity.this, "load model sync fail.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
+            }
         }
-
         Message msg_end = new Message();
         msg_end.what = LOED_DETECT_END;
         handler.sendMessage(msg_end);
@@ -252,7 +277,9 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
             @Override
             public synchronized void run() {
                     loadModel();
-                    executeImg();
+                    if(Config.getIsCPUMode(getApplicationContext())){
+                        executeImg();
+                    }
             }
         });
         if (isExist) {
@@ -281,18 +308,6 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         protected Void doInBackground(Void... voids) {
-            /*if (!Config.getIsCPUMode(DetectionActivity.this)) {
-                startTime = SystemClock.uptimeMillis();
-                try {
-                    String cmd = "su -s sh  -c /data/test/caffe_ipu/detection.sh";
-                    Process proc = Runtime.getRuntime().exec(cmd);
-                    Thread.sleep(1000);
-                    //proc.waitFor();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }*/
             startTime = SystemClock.uptimeMillis();
             int w = bitmap.getWidth();
             int h = bitmap.getHeight();
@@ -320,59 +335,10 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
     public void onTaskCompleted(int result) {
         if (isExist) {
             CPUProcess();
-            /*if (Config.getIsCPUMode(DetectionActivity.this)) {
-                CPUProcess();
-            } else {
-                IPUProcess();
-            }*/
         } else {
             testPro.setText(getString(R.string.detection_end_guide));
         }
     }
-
-
-    /*private synchronized void IPUProcess() {
-        String IPUTxtPath = Config.detect_ipu_path;
-        testTime.setVisibility(View.VISIBLE);
-        textFps.setVisibility(View.VISIBLE);
-        testNet.setVisibility(View.VISIBLE);
-        testPro.setText("ipu模式检测....");
-        mPostTime = new int[]{0};
-        ivCaptured.setScaleType(ImageView.ScaleType.FIT_XY);
-        try {
-            File file = new File(IPUTxtPath);
-            if (file.exists()) {
-                mDetectionImageArrayList = FileUtils.readDetectionIPUTxt(IPUTxtPath);
-                for (index = 0; index < mDetectionImageArrayList.size(); index++) {
-                    String netType = mDetectionImageArrayList.get(index).getNetType();
-                    String picName = mDetectionImageArrayList.get(index).getName();
-                    int time = Integer.parseInt(mDetectionImageArrayList.get(index).getTime());
-                    mPostTime[0] = mPostTime[0] + time;
-                    double fps = ConvertUtil.getFps(mDetectionImageArrayList.get(index).getFps());
-                    final Bitmap bitmap = BitmapFactory.decodeFile(Config.caffe_result + picName);
-                    if (index > 0) {
-                        detectionDB.addIPUClassification(picName, String.valueOf(time), String.valueOf(fps), netType);
-                        storeIPUImage(bitmap);
-                    }
-                    mBundle = new Bundle();
-                    mBundle.putParcelable(BITMAP, bitmap);
-                    mBundle.putInt(TIME, time);
-                    mBundle.putDouble(FPS, fps);
-                    mBundle.putString(NETTYPE, netType);
-                    Message msg_update_img = new Message();
-                    msg_update_img.what = UPDATE_IMG;
-                    msg_update_img.setData(mBundle);
-                    handler.sendMessageDelayed(msg_update_img, mPostTime[0]);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Message msg_IPU_end = new Message();
-        msg_IPU_end.what = IPU_DETECT_END;
-        handler.sendMessageDelayed(msg_IPU_end, mPostTime[0]);
-    }*/
 
     private void CPUProcess() {
         ivCaptured.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -419,19 +385,6 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
         loadCaffe.setText(getResources().getString(R.string.detection_change_model) + loadDTime + "ms");
         testNet.setText(getString(R.string.decete_type) + FASTRCNN);
     }
-
-    /*protected void loadResNet() {
-        long startTime = SystemClock.uptimeMillis();
-        caffeDetection.setNumThreads(4);
-        caffeDetection.loadModel(Config.dModelProto_101, Config.dModelBinary_101, Config.getIsCPUMode(DetectionActivity.this));
-        caffeDetection.setMean(Config.dModelMean_101);
-
-        Config.isResNet50 = false;
-        Config.isResNet101 = true;
-        loadDTime = SystemClock.uptimeMillis() - startTime;
-        loadCaffe.setText(getResources().getString(R.string.detection_change_model) + loadDTime + "ms");
-        testNet.setText(getString(R.string.decete_type) + "ResNet101");
-    }*/
 
     public void storeImage(Bitmap bitmap) {
         File file = new File(Config.dImagePath, "detec-" + index + ".jpg");
@@ -481,5 +434,17 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
     protected void onDestroy() {
         super.onDestroy();
         isExist = false;
+        if(isModelSyncLoaded){
+            isModelSyncLoaded=false;
+            int ret = offlineDetecte.stopModelSync();
+            isModelSyncLoaded=false;
+            if (0 == ret) {
+                offlineDetecte.destroyModelClient(USING_SYNC);
+                isModelSyncLoaded = false;
+                Toast.makeText(DetectionActivity.this, "Sync unload model success.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(DetectionActivity.this, "Sync unload model fail.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

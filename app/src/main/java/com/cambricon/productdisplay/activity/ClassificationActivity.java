@@ -90,6 +90,7 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
     private static final int RESIZED_HEIGHT = 227;
     private Bitmap rgba;
     private String[] ipuResult=new String[2];
+    private boolean isModelSyncLoaded = false;
 
     private ArrayList<ClassificationImage> arrayList = new ArrayList<>();
 
@@ -241,37 +242,40 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
                 Config.loadClassifyTime = end_time;
             }
         } else {
-            start_time = SystemClock.uptimeMillis();
-            offLineCaffeClassification.createModelClient(USING_SYNC);
-            end_time = SystemClock.uptimeMillis() - start_time;
-            Config.loadClassifyTime = end_time;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    int ret = offLineCaffeClassification.loadModelSyncFromSdcard();
-                    if (0 == ret) {
-                        //isModelSyncLoaded = true;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(ClassificationActivity.this, "load model sync success.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(ClassificationActivity.this, "load model sync fail.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+            Log.e("classhuangyaling","isModelSyncLoaded="+isModelSyncLoaded);
+            if(!isModelSyncLoaded){
+                isModelSyncLoaded=true;
+                start_time = SystemClock.uptimeMillis();
+                offLineCaffeClassification.createModelClient(USING_SYNC);
+                end_time = SystemClock.uptimeMillis() - start_time;
+                Config.loadClassifyTime = end_time;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int ret = offLineCaffeClassification.loadModelSyncFromSdcard();
+                        if (0 == ret) {
+                            //isModelSyncLoaded = true;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ClassificationActivity.this, "load model sync success.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ClassificationActivity.this, "load model sync fail.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
-                }
-            }).start();
+                }).start();
+            }
         }
         Message msg_end = new Message();
         msg_end.what = END_LODEMODEL;
         handler.sendMessage(msg_end);
-
     }
 
     /**
@@ -440,5 +444,16 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
     protected void onDestroy() {
         super.onDestroy();
         isExist = false;
+        if(isModelSyncLoaded){
+            int ret = offLineCaffeClassification.stopModelSync();
+            isModelSyncLoaded=false;
+            if (0 == ret) {
+                offLineCaffeClassification.destroyModelClient(USING_SYNC);
+                isModelSyncLoaded = false;
+                Toast.makeText(ClassificationActivity.this, "Sync unload model success.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(ClassificationActivity.this, "Sync unload model fail.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
