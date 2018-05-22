@@ -12,4 +12,5 @@ public class OfflineDetecte {
     public native void createModelClient(int isSync);
     public static native int stopModelSync();
     public native void destroyModelClient(int isSync);
+    public native int runModelSync(float[] pixels);
 }

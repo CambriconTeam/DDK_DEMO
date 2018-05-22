@@ -24,9 +24,9 @@ public class OffLineCaffeClassification {
 
     public static native int stopModelAsync();
 
-    public native void initLabels(byte[] words);
+    public static native void initLabels(byte[] words);
 
-    public native void createModelClient(int isSync);
+    public static native void createModelClient(int isSync);
 
-    public native void destroyModelClient(int isSync);
+    public static native void destroyModelClient(int isSync);
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cambricon.productdisplay.R;
+import com.cambricon.productdisplay.adapter.DetectIPUPagerAdapter;
 import com.cambricon.productdisplay.adapter.DetectPagerAdapter;
 import com.cambricon.productdisplay.bean.DetectionImage;
 import com.cambricon.productdisplay.db.DetectionDB;
@@ -123,7 +124,8 @@ public class DetectionData extends Fragment implements View.OnClickListener {
                 showDetetcionPic(allTicketsList);
                 break;
             case R.id.all_ipu_result:
-                showDetetcionPic(ipu_allTickets);
+                Log.i(TAG, "onClick: "+ipu_allTickets.size());
+                showIPUDetetcionPic(ipu_allTickets);
                 break;
         }
     }
@@ -149,12 +151,33 @@ public class DetectionData extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void showIPUDetetcionPic(ArrayList<DetectionImage> list) {
+        ResultDialog dialog = new ResultDialog(getContext());
+        View contentView1 = LayoutInflater.from(getContext()).inflate(R.layout.result_dialog, null);
+        ultraViewPager_dialog = contentView1.findViewById(R.id.ultra_viewpager_dialog);
+        ultraViewPager_dialog.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
+        adapter_dialog = new DetectIPUPagerAdapter(true, list);
+        ultraViewPager_dialog.setAdapter(adapter_dialog);
+        ultraViewPager_dialog.setMultiScreen(0.6f);
+        ultraViewPager_dialog.setItemRatio(1.0f);
+        ultraViewPager_dialog.setAutoMeasureHeight(true);
+        ultraViewPager_dialog.setPageTransformer(false, new UltraDepthScaleTransformer());
+        dialog.setContentView(contentView1);
+        dialog.setTitle("测试结果");
+        dialog.setCanceledOnTouchOutside(true);
+        if (list.size() > 0) {
+            dialog.show();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.classification_dialog_null), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         getData();
         DataUtil dataUtil=new DataUtil();
-        dataUtil.showDChart(getContext(),linearLayout, graphicalView, allTicketsList, ipu_allTickets, points, rePoints,ipu_points,ipu_rePoints,200);
+        dataUtil.showDChart(getContext(),linearLayout, graphicalView, allTicketsList, ipu_allTickets, points, rePoints,ipu_points,ipu_rePoints,1500);
         dataUtil.showDChart(getContext(),linearLayoutoffline, graphicalViewOffline, allOfflineList, ipu_allTickets, offline_points, null,null,null,200);
     }
 
@@ -237,7 +260,7 @@ public class DetectionData extends Fragment implements View.OnClickListener {
         ipu_allTickets = detectionDB.fetchIPUAll();
 
         for (DetectionImage image : ipu_allTickets) {
-            Log.w(TAG, "getData: " + image.toString());
+            Log.w(TAG, "getData:ipudetecte: " + image.toString());
         }
 
         Log.w(TAG, "getData:ipu " + ipu_allTickets.size());
@@ -279,4 +302,9 @@ public class DetectionData extends Fragment implements View.OnClickListener {
         fps_ipu.append(String.valueOf(ipu_avg50) + "/" + String.valueOf(ipu_avg101) + "(张/分钟)");
         time_ipu.append(String.valueOf(ipu_time50) + "/" + String.valueOf(ipu_time101) + "(ms)");
     }
+
+
+
+
+
 }

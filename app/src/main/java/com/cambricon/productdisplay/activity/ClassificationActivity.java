@@ -103,6 +103,7 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
                     break;
                 case END_LODEMODEL:
                     loadCaffe.setText(getString(R.string.load_model) + Config.loadClassifyTime + "ms");
+                    executeImg();
                 default:
                     break;
             }
@@ -213,8 +214,10 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
         testThread = new Thread(new Runnable() {
             @Override
             public synchronized void run() {
+
                 load();
-                executeImg();
+
+
             }
         });
         if (isExist) {
@@ -243,16 +246,16 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
             }
         } else {
             Log.e("classhuangyaling","isModelSyncLoaded="+isModelSyncLoaded);
+            start_time = SystemClock.uptimeMillis();
             if(!isModelSyncLoaded){
                 isModelSyncLoaded=true;
-                start_time = SystemClock.uptimeMillis();
                 offLineCaffeClassification.createModelClient(USING_SYNC);
-                end_time = SystemClock.uptimeMillis() - start_time;
-                Config.loadClassifyTime = end_time;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+
                         int ret = offLineCaffeClassification.loadModelSyncFromSdcard();
+
                         if (0 == ret) {
                             //isModelSyncLoaded = true;
                             runOnUiThread(new Runnable() {
@@ -266,13 +269,18 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
                                 @Override
                                 public void run() {
                                     Toast.makeText(ClassificationActivity.this, "load model sync fail.", Toast.LENGTH_SHORT).show();
+                                    return;
                                 }
                             });
                         }
                     }
                 }).start();
             }
+            end_time = SystemClock.uptimeMillis() - start_time;
+            Config.loadClassifyTime = end_time;
         }
+
+
         Message msg_end = new Message();
         msg_end.what = END_LODEMODEL;
         handler.sendMessage(msg_end);

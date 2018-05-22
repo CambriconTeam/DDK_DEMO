@@ -37,6 +37,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static android.graphics.Color.blue;
+import static android.graphics.Color.green;
+import static android.graphics.Color.red;
+
 public class DetectionActivity extends AppCompatActivity implements View.OnClickListener, CNNListener {
 
     private final String TAG = "DetectionActivity";
@@ -90,6 +94,7 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         StatusBarCompat.compat(this, ContextCompat.getColor(this, R.color.colorPrimary));
         setContentView(R.layout.classification_layout);
+        Log.i(TAG, "onCreate: ");
         init();
         setActionBar();
     }
@@ -174,13 +179,16 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
         startDetect();
         detection_begin.setVisibility(View.GONE);
         detection_end.setVisibility(View.VISIBLE);
+
     }
 
     public void loadModel() {
         Message msg = new Message();
         msg.what = START_LOAD_DETECT;
         handler.sendMessage(msg);
-        if(Config.getIsCPUMode(getApplicationContext())){
+        Log.i(TAG, "loadModel: "+Config.getIsCPUMode(DetectionActivity.this));
+        if(Config.getIsCPUMode(DetectionActivity.this)){
+            Log.i(TAG, "loadModel: CPU");
             long startTime = SystemClock.uptimeMillis();
             caffeDetection.setNumThreads(4);
             Log.e(TAG, "loadModel: " + Config.getIsCPUMode(DetectionActivity.this));
@@ -195,8 +203,11 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
                 Config.loadDetecteTime = loadDTime;
             }
         }else{
+            Log.i(TAG, "loadModel: IPU");
+
+            long start_time = SystemClock.uptimeMillis();
             if(!isModelSyncLoaded){
-                isModelSyncLoaded=false;
+                isModelSyncLoaded=true;
                 offlineDetecte.createModelClient(USING_SYNC);
                 Log.e("huangyaling","create model client");
                 new Thread(new Runnable() {
@@ -221,6 +232,8 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
                     }
                 }).start();
             }
+            long end_time = SystemClock.uptimeMillis() - start_time;
+            Config.loadDetecteTime = end_time;
         }
         Message msg_end = new Message();
         msg_end.what = LOED_DETECT_END;
@@ -235,6 +248,9 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
                 case START_LOAD_DETECT:
                     loadCaffe.setText(R.string.load_data_detection);
                     testNet.setText(getString(R.string.decete_type) + RESNET50);
+                    if(!Config.getIsCPUMode(DetectionActivity.this)){
+                        testNet.setText(getString(R.string.decete_type) + "fast-rcnn");
+                    }
                     break;
                 case LOED_DETECT_END:
                     loadCaffe.setText(getResources().getString(R.string.detection_load_model) + Config.loadDetecteTime + "ms");
@@ -277,9 +293,8 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
             @Override
             public synchronized void run() {
                     loadModel();
-                    if(Config.getIsCPUMode(getApplicationContext())){
-                        executeImg();
-                    }
+                    executeImg();
+
             }
         });
         if (isExist) {
@@ -311,10 +326,21 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
             startTime = SystemClock.uptimeMillis();
             int w = bitmap.getWidth();
             int h = bitmap.getHeight();
-            int[] pixels = new int[w * h];
-            bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, w, h);
-            int[] resultInt = caffeDetection.grayPoc(pixels, w, h);
-            resBitmap = Bitmap.createBitmap(resultInt, w, h, bitmap.getConfig());
+            if(Config.getIsCPUMode(DetectionActivity.this)){
+                int[] pixels = new int[w * h];
+                bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, w, h);
+                int[] resultInt = caffeDetection.grayPoc(pixels, w, h);
+                resBitmap = Bitmap.createBitmap(resultInt, w, h, bitmap.getConfig());
+            }else{
+                Bitmap rgba = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+                final Bitmap initClassifiedImg = Bitmap.createScaledBitmap(rgba, w, h, false);
+                final float[] pixels = getPixel(initClassifiedImg, w, h);
+                int result = offlineDetecte.runModelSync(pixels);
+                //结果
+                resBitmap = bitmap;
+
+            }
+
             return null;
         }
 
@@ -334,10 +360,43 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onTaskCompleted(int result) {
         if (isExist) {
-            CPUProcess();
+            if(Config.getIsCPUMode(DetectionActivity.this)){
+                Log.i(TAG, "CPUProcess");
+                CPUProcess();
+            }else{
+                Log.i(TAG, "IPUProcess");
+                IPUProcess();
+            }
+
         } else {
             testPro.setText(getString(R.string.detection_end_guide));
         }
+    }
+
+
+    private void IPUProcess() {
+        ivCaptured.setScaleType(ImageView.ScaleType.FIT_XY);
+        ivCaptured.setImageBitmap(resBitmap);
+        Log.i(TAG, "IPUProcess: "+index);
+
+        detectionDB.addIPUClassification(Config.dImageArray[index], String.valueOf((int) detectionTime), getFps(detectionTime),"fast-rcnn");
+
+        storeIPUImage(resBitmap);
+        testTime.setText(getResources().getString(R.string.test_time) + String.valueOf(detectionTime) + "ms");
+        textFps.setText(getResources().getString(R.string.test_fps) + ConvertUtil.getFps(getFps(detectionTime)) + getResources().getString(R.string.test_fps_units));
+        if (index < Config.dImageArray.length-1) {
+            executeImg();
+        } else {
+            Toast.makeText(this, "检测结束", Toast.LENGTH_SHORT).show();
+            testPro.setText(getString(R.string.detection_end_guide));
+            isExist = false;
+            detection_begin.setVisibility(View.VISIBLE);
+            detection_end.setVisibility(View.GONE);
+
+            destroyModelClient();
+
+        }
+        index++;
     }
 
     private void CPUProcess() {
@@ -388,6 +447,7 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
 
     public void storeImage(Bitmap bitmap) {
         File file = new File(Config.dImagePath, "detec-" + index + ".jpg");
+        Log.i(TAG, "storageImage: "+index);
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -407,6 +467,7 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
 
     public void storeIPUImage(Bitmap bitmap) {
         File file = new File(Config.dImagePath, "detecIPU-" + index + ".jpg");
+        Log.i(TAG, "storageipuImage: "+index);
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -434,6 +495,10 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
     protected void onDestroy() {
         super.onDestroy();
         isExist = false;
+        destroyModelClient();
+    }
+
+    public void destroyModelClient(){
         if(isModelSyncLoaded){
             isModelSyncLoaded=false;
             int ret = offlineDetecte.stopModelSync();
@@ -446,5 +511,26 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(DetectionActivity.this, "Sync unload model fail.", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private float[] getPixel(Bitmap bitmap, int resizedWidth, int resizedHeight) {
+        int channel = 3;
+        float[] buff = new float[channel * resizedWidth * resizedHeight];
+
+        int rIndex, gIndex, bIndex;
+        for (int i = 0; i < resizedHeight; i++) {
+            for (int j = 0; j < resizedWidth; j++) {
+                bIndex = i * resizedWidth + j;
+                gIndex = bIndex + resizedWidth * resizedHeight;
+                rIndex = gIndex + resizedWidth * resizedHeight;
+
+                int color = bitmap.getPixel(j, i);
+
+                buff[bIndex] = (float) (red(color) - 123.68);
+                buff[gIndex] = (float) (green(color) - 116.78);
+                buff[rIndex] = (float) (blue(color) - 103.94);
+            }
+        }
+        return buff;
     }
 }

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class DetectPagerAdapter extends PagerAdapter {
         TextView textView = linearLayout.findViewById(R.id.pager_result_tv);
         TextView timeTV=linearLayout.findViewById(R.id.pager_time_tv);
         ImageView imageView=linearLayout.findViewById(R.id.pager_image);
+        Log.i("DetectPagerAdapter", "position:"+position);
         File file = new File(Config.dImagePath,"detec-"+(position+1)+".jpg");
         sdBitmap=BitmapFactory.decodeFile(file.getPath());
         imageView.setImageBitmap(sdBitmap);
