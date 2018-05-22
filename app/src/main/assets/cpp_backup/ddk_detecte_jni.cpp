@@ -68,7 +68,7 @@ class MMTaskWaiter
 {
 public:
     MMTaskWaiter()
-        : count(0)
+            : count(0)
     {
         pthread_mutex_init(&mMutex, NULL);
         pthread_cond_init(&mCond, NULL);
@@ -190,41 +190,90 @@ private:
     MMTaskWaiter* mWaiter;
 };
 
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_cambricon_productdisplay_caffenative_OfflineDetecte_runModelSync(JNIEnv *env,
+                                                                          jobject instance,
+                                                                          jfloatArray buf) {
+    LOGE("runModelSync");
+    if(sp_aiModelMngrClient == NULL){
+        sp_aiModelMngrClient = new AiModelManager();
+    }
+
+    TensorDescription tensor;
+    tensor.number = 1;
+    tensor.channel = IMG_C;
+    tensor.height = IMG_H;
+    tensor.width = IMG_W;
+
+    sp<NativeHandleWrapper> srcBuf = NativeHandleWrapper::createFromTensor(tensor);
+    float *dataBuff = NULL;
+
+    if (NULL != buf){
+        dataBuff = env->GetFloatArrayElements(buf, NULL);
+    }
+
+    memcpy(srcBuf->getBuffer(), dataBuff, srcBuf->getSize());
+
+    TensorDescription destTensor;
+    destTensor.number = 1;
+    destTensor.channel = 1000;
+    destTensor.height = 1;
+    destTensor.width = 1;
+    uint32_t timeOut = 1000;
+
+    sp<NativeHandleWrapper> destBuf = NativeHandleWrapper::createFromTensor(destTensor);
+
+    __android_log_print(ANDROID_LOG_INFO, "ai_ddkdemo_msg", "runModelSync createFromTensor success\n");
+
+    float time_use;
+    struct timeval tpstart, tpend;
+    gettimeofday(&tpstart, NULL);
+    jint ret = (jint)sp_aiModelMngrClient->runModel(srcBuf->getHandle(), tensor, destBuf->getHandle(), destTensor, timeOut);
+    gettimeofday(&tpend, NULL);
+    time_use = 1000000 * (tpend.tv_sec - tpstart.tv_sec) + tpend.tv_usec - tpstart.tv_usec;
+
+    __android_log_print(ANDROID_LOG_INFO, "ai_ddkdemo_msg", "runModel %d\n", ret);
+
+    LOGD("ai_ddkdemo_msg, runModelSync success");
+
+    return 0;
+}
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 JNIEXPORT jint JNICALL
 Java_com_cambricon_productdisplay_caffenative_OfflineDetecte_loadModelSyncFromSdcard(JNIEnv *env,
-                                                                                       jclass type) {
+                                                                                     jclass type) {
 
     // TODO
-   if(sp_aiModelMngrClient == NULL){
+    if(sp_aiModelMngrClient == NULL){
         LOGE("you should invoke createModelClient first!");
         return STATUS_ERROR;
     }
 
     vector<ModelBuffer> modelBufferVec;
-    sp<ModelBufferWrapper> wrap = ModelBufferWrapper::createFromModelFile("model1", "/sdcard/caffe_mobile/ipu/fasterrcnn.cambricon", AiDevPerf::DEV_HIGH_PROFILE);
-    
+    sp<ModelBufferWrapper> wrap = ModelBufferWrapper::createFromModelFile("model1", "/storage/emulated/0/caffe_mobile/ipu/AlexNet.cambricon", AiDevPerf::DEV_HIGH_PROFILE);
+
     ModelBuffer modelBuffer = wrap->getModelBuf();
-    
+
     jint ret = -1;
     ret = (jint)sp_aiModelMngrClient->startModel(modelBuffer);
     LOGD("chenfuduo startModel from sdcard %d\n", ret);
-    
+
     return ret;
 
 }
 
 JNIEXPORT void JNICALL
 Java_com_cambricon_productdisplay_caffenative_OfflineDetecte_createModelClient(JNIEnv *env,
-                                                                                 jobject instance,
-                                                                                 jint isSync) {
+                                                                               jobject instance,
+                                                                               jint isSync) {
 
     // TODO
     LOGD("create client issync value %d", isSync);
-    
+
     if(isSync == 1){
         if (sp_aiModelMngrClient == NULL){
             LOGI("create sync client.");
@@ -240,7 +289,7 @@ Java_com_cambricon_productdisplay_caffenative_OfflineDetecte_createModelClient(J
         }else{
             LOGE("listener existed.");
         }
-        
+
         if (sp_aiModelMngrClient == NULL && sp_mmListener != NULL){
             sp_aiModelMngrClient = new AiModelManager(sp_mmListener);
         }else{
@@ -257,9 +306,9 @@ JNIEXPORT jint Java_com_cambricon_productdisplay_caffenative_OfflineDetecte_stop
     if(sp_aiModelMngrClient == NULL){
         sp_aiModelMngrClient = new AiModelManager();
     }
-    
+
     jint ret = (jint)sp_aiModelMngrClient->stopModel();
-    
+
     return ret;
 }
 
@@ -267,9 +316,9 @@ JNIEXPORT void JNICALL Java_com_cambricon_productdisplay_caffenative_OfflineDete
         JNIEnv *env,
         jobject /* this */,
         jint isSync){
-    
+
     LOGD("destroy client issync value %d", isSync);
-    
+
     if (isSync == 1){
         if (sp_aiModelMngrClient != NULL){
             LOGI("destroy sync client.");
