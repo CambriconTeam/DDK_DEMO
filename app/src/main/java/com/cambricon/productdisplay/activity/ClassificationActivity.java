@@ -237,8 +237,8 @@ public class ClassificationActivity extends AppCompatActivity implements CNNList
             caffeMobile = new CaffeMobile();
             caffeMobile.setNumThreads(4);
             start_time = SystemClock.uptimeMillis();
-            //caffeMobile.loadModel(Config.modelProto, Config.modelBinary, Config.getIsCPUMode(ClassificationActivity.this));
-            caffeMobile.loadModel(Config.modelProto, Config.modelBinary, false);
+            caffeMobile.loadModel(Config.modelProto, Config.modelBinary, Config.getIsCPUMode(ClassificationActivity.this));
+            //caffeMobile.loadModel(Config.modelProto, Config.modelBinary, false);
             end_time = SystemClock.uptimeMillis() - start_time;
             float[] meanValues = {104, 117, 123};
             caffeMobile.setMean(meanValues);
