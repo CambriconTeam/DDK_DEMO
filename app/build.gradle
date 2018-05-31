@@ -30,6 +30,12 @@ android {
     buildToolsVersion '26.0.2'
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -42,4 +48,6 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.alibaba.android:ultraviewpager:1.0.4@aar'
     implementation 'com.kyleduo.switchbutton:library:2.0.0'
+    compile(name: 'huawei-hiai-vision-8.1.0.300', ext: 'aar')
+    compile 'com.google.code.gson:gson:2.8.1'
 }

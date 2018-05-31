@@ -203,8 +203,6 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
                 Config.loadDetecteTime = loadDTime;
             }
         }else{
-            Log.i(TAG, "loadModel: IPU");
-
             long start_time = SystemClock.uptimeMillis();
             if(!isModelSyncLoaded){
                 isModelSyncLoaded=true;

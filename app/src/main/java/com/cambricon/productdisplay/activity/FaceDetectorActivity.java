@@ -1,13 +1,19 @@
 package com.cambricon.productdisplay.activity;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,19 +29,27 @@ import com.cambricon.productdisplay.R;
 import com.cambricon.productdisplay.caffenative.FaceDetection;
 import com.cambricon.productdisplay.db.FaceDetectDB;
 import com.cambricon.productdisplay.task.CNNListener;
+import com.cambricon.productdisplay.task.FaceDetectTask;
+import com.cambricon.productdisplay.task.MMListener;
 import com.cambricon.productdisplay.utils.Config;
 import com.cambricon.productdisplay.utils.ConvertUtil;
+import com.huawei.hiai.vision.common.ConnectionCallback;
+import com.huawei.hiai.vision.common.VisionBase;
+import com.huawei.hiai.vision.visionkit.common.BoundingBox;
+import com.huawei.hiai.vision.visionkit.face.Face;
+import com.huawei.hiai.vision.visionkit.face.FaceLandmark;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by cambricon on 18-3-12.
  */
 
 public class FaceDetectorActivity extends AppCompatActivity implements View.OnClickListener,
-        CNNListener {
+        CNNListener ,MMListener {
 
 
     private static final String TAG = FaceDetection.class.getSimpleName();
@@ -44,6 +58,7 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
     private Button mBtn_face_detector_end;
 
     private Bitmap mBitmap;
+    private Bitmap test;
     private Bitmap mResultFace;
 
     private ImageView mIv_face_detector;
@@ -70,6 +85,7 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
     private final int LOED_DETECT_END = 3;
     private final int LOED_DETECT_101 = 4;
     private final int LOED_DETECT_101_END = 5;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +119,24 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
 
         mBtn_face_detector_begin.setOnClickListener(this);
         mBtn_face_detector_end.setOnClickListener(this);
+        if(!Config.getIsCPUMode(getApplicationContext())){
+            //To connect HiAi Engine service using VisionBase
+            VisionBase.init(FaceDetectorActivity.this,new ConnectionCallback(){
+                @Override
+                public void onServiceConnect() {
+                    //This callback method is called when the connection to the service is successful.
+                    //Here you can initialize the detector class, mark the service connection status, and more.
+                    Log.i(TAG, "onServiceConnect ");
+                }
+
+                @Override
+                public void onServiceDisconnect() {
+                    //This callback method is called when disconnected from the service.
+                    //You can choose to reconnect here or to handle exceptions.
+                    Log.i(TAG, "onServiceDisconnect");
+                }
+            });
+        }
 
     }
 
@@ -133,7 +167,6 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
                 mTv_face_detect_guide.setText(getString(R.string.face_detection_begin_guide));
                 mTv_face_detect_time.setVisibility(View.VISIBLE);
                 mTV_face_detect_fps_time.setVisibility(View.VISIBLE);
-//              mFaceDetectDB.deleteAllFaceDetection();//清空DB重新记录
                 isExist = true;
                 startFaceDetector();
                 mBtn_face_detector_begin.setVisibility(View.GONE);
@@ -170,12 +203,19 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
     private void executeImg() {
         File imgFile = new File(Config.faceImgDir, Config.faceImgArray[index]);
         mBitmap = BitmapFactory.decodeFile(imgFile.getPath());
-        MTCNNTask mtcnnTask = new MTCNNTask(FaceDetectorActivity.this);
-        if (imgFile.exists()) {
-            mtcnnTask.execute();
-        } else {
-            Log.e(TAG, "File is not exist");
+        if(Config.getIsCPUMode(getApplicationContext())){
+            MTCNNTask mtcnnTask = new MTCNNTask(FaceDetectorActivity.this);
+            if (imgFile.exists()) {
+                mtcnnTask.execute();
+            } else {
+                Log.e(TAG, "File is not exist");
+            }
+        }else{
+            test=BitmapFactory.decodeResource(getResources(), R.drawable.face);
+            FaceDetectTask cnnTask = new FaceDetectTask(FaceDetectorActivity.this);
+            cnnTask.execute(test);
         }
+
     }
 
     private class MTCNNTask extends AsyncTask<Void, Void, Void> {
@@ -232,11 +272,8 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
                     mFaceDetectDB.addIPUFaceDetection(Config.faceImgArray[index], String.valueOf((int) mDetectionTime), getFps(mDetectionTime));
                 }
             }
-
             storeImage(mResultFace);
-
             index++;
-
             mTv_face_detect_time.setText(getResources().getString(R.string.test_time) +
                     String.valueOf(mDetectionTime) + "ms");
             mTV_face_detect_fps_time.setText(getResources().getString(R.string.test_fps)
@@ -257,6 +294,72 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
         } else {
             mTv_face_detect_guide.setText(getString(R.string.face_detection_end_guide));
         }
+    }
+
+    @Override
+    public void onTaskCompleted(List<Face> faces) {
+        if(isExist){
+            Bitmap tempBmp= test.copy(Bitmap.Config.ARGB_8888, true);
+            if (faces == null || tempBmp==null) {
+                //tvFace.setText("not get face");
+            } else {
+                Canvas canvas = new Canvas(tempBmp);
+
+                Paint paint = new Paint();
+                paint.setColor(Color.GREEN);
+                for (Face face : faces) {
+                    BoundingBox faceRect = face.getFaceRect();
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setStrokeWidth((float)(faceRect.getWidth())/100);
+                    canvas.drawRect(faceRect.getLeft(), faceRect.getTop(),  faceRect.getLeft()+faceRect.getWidth(), faceRect.getTop()+faceRect.getHeight(), paint);
+                    List<FaceLandmark> landmarks = face.getLandmarks();
+                    for (FaceLandmark landmark : landmarks) {
+                        canvas.drawPoint(landmark.getPosition().x, landmark.getPosition().y, paint);
+                    }
+
+                    int textHeight = faceRect.getWidth()/10;
+                    paint.setTextSize(textHeight);
+                    paint.setStyle(Paint.Style.FILL);
+                    int textX = faceRect.getLeft();
+                    int textY = faceRect.getTop()+faceRect.getHeight()+textHeight;
+                    String strFace = "yaw: " + face.getYaw();
+                    canvas.drawText(strFace, textX, textY, paint);
+                    strFace = "pitch: " + face.getPitch();
+                    textY += textHeight;
+                    canvas.drawText(strFace, textX, textY, paint);
+                    strFace = "roll: " + face.getRoll();
+                    textY += textHeight;
+                    canvas.drawText(strFace, textX, textY, paint);
+                }
+
+            }
+            mIv_face_detector.setImageBitmap(tempBmp);
+            mTv_face_detect_time.setText(getResources().getString(R.string.test_time) +
+                    String.valueOf(FaceDetectTask.forwardTime) + "ms");
+            mTV_face_detect_fps_time.setText(getResources().getString(R.string.test_fps)
+                    + ConvertUtil.getFps(getFps(FaceDetectTask.forwardTime))
+                    + getResources().getString(R.string.test_fps_units));
+            /*index++;
+            if (index < Config.faceImgArray.length) {
+                executeImg();
+            } else {
+                Toast.makeText(this, "检测结束", Toast.LENGTH_LONG).show();
+                mTv_face_detect_guide.setText(getString(R.string.face_detection_end_guide));
+                isExist = false;
+                mBtn_face_detector_begin.setVisibility(View.VISIBLE);
+                mBtn_face_detector_end.setVisibility(View.GONE);
+                Log.i(TAG, "检测完成");
+            }*/
+            Toast.makeText(this, "检测结束", Toast.LENGTH_LONG).show();
+            mTv_face_detect_guide.setText(getString(R.string.face_detection_end_guide));
+            isExist = false;
+            mBtn_face_detector_begin.setVisibility(View.VISIBLE);
+            mBtn_face_detector_end.setVisibility(View.GONE);
+            Log.i(TAG, "检测完成");
+        }else{
+            Log.d(TAG,"finish");
+        }
+
     }
 
     public void storeImage(Bitmap bitmap) {
@@ -294,19 +397,22 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
         long startTime = SystemClock.uptimeMillis();
 
         Log.e(TAG, "loadModel: " + Config.getIsCPUMode(FaceDetectorActivity.this));
-        int i = 0;
-        while (i < Config.faceModelArray.length) {
-            File file = new File(Config.faceModelDir, Config.faceModelArray[i]);
-            if (file.exists()) {
-                i++;
-                try {
-                    Thread.sleep(80);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        if(Config.getIsCPUMode(FaceDetectorActivity.this)){
+            int i = 0;
+            while (i < Config.faceModelArray.length) {
+                File file = new File(Config.faceModelDir, Config.faceModelArray[i]);
+                if (file.exists()) {
+                    i++;
+                    try {
+                        Thread.sleep(80);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+        }else{
+            Log.i(TAG,"is ipu mode");
         }
-
         loadDTime = SystemClock.uptimeMillis() - startTime;
         Log.e(TAG, "loadModel: end");
         Message msg_end = new Message();

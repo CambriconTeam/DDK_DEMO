@@ -112,6 +112,16 @@ set_target_properties(
     ${CMAKE_CURRENT_LIST_DIR}/src/main/jniLibs/${ANDROID_ABI}/libsingle_jni.so
     )
 #add by Chengyu Yang 2018.04.23
+add_library(
+    ipu
+    SHARED
+    IMPORTED
+    )
+set_target_properties(
+    ipu
+    PROPERTIES IMPORTED_LOCATION
+    ${CMAKE_CURRENT_LIST_DIR}/src/main/jniLibs/${ANDROID_ABI}/libipu.so
+    )
 
 target_link_libraries( # Specifies the target library.
                        native-lib
@@ -122,6 +132,7 @@ target_link_libraries( # Specifies the target library.
                        face_jni
                        single_jni
                        offclassify_jni
+                       ipu
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )
