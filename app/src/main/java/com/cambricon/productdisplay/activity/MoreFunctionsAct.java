@@ -88,9 +88,9 @@ public class MoreFunctionsAct extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 switch (position) {
                     case 0:
-                        Intent intent = new Intent(MoreFunctionsAct.this, OffLineClassifiactionAct.class);
-                        intent.putExtra("BaseToolBarTitle", getString(R.string.offline_classification));
-                        startActivity(intent);
+                        //Intent intent = new Intent(MoreFunctionsAct.this, OffLineClassifiactionAct.class);
+                       // intent.putExtra("BaseToolBarTitle", getString(R.string.offline_classification));
+                       // startActivity(intent);
                         break;
                     case 1:
                         Intent intent1 = new Intent(MoreFunctionsAct.this, OffLineDetectionAct.class);
@@ -103,9 +103,9 @@ public class MoreFunctionsAct extends AppCompatActivity {
 
                         break;
                     case 3:
-                        /*Intent intent3 = new Intent(MoreFunctionsAct.this, SimpleClassificationAct.class);
-                        intent3.putExtra("BaseToolBarTitle", "单层在线分类");
-                        startActivity(intent3);*/
+                        Intent intent3 = new Intent(MoreFunctionsAct.this, TextOcrAct.class);
+                        intent3.putExtra("BaseToolBarTitle", "简单背景OCR");
+                        startActivity(intent3);
                         break;
                     case 4:
                         /*Intent intent4 = new Intent(MoreFunctionsAct.this, ClassificationActivity.class);

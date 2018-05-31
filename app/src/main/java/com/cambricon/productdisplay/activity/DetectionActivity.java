@@ -31,6 +31,7 @@ import com.cambricon.productdisplay.utils.ConvertUtil;
 import com.cambricon.productdisplay.utils.FileUtils;
 import com.cambricon.productdisplay.utils.RootUtil;
 import com.cambricon.productdisplay.utils.StatusBarCompat;
+import com.huawei.hiai.vision.visionkit.text.TextConfiguration;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -88,7 +89,6 @@ public class DetectionActivity extends AppCompatActivity implements View.OnClick
     private static final int USING_SYNC = 1;
     private boolean isModelSyncLoaded = false;
     //huangyaling add for offline ipu mode end
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

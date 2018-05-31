@@ -28,11 +28,13 @@
         <item>图片分类（加层IPU）</item>
         <item>目标检测（加层IPU）</item>
         <item>单层性能比较</item>
+        <item>简单背景OCR</item>
     </string-array>
     <string-array name="more_functions_summary">
         <item>加层网络离线模型图片分类，效率高，正确率高</item>
         <item>加层网络离线模型目标检测，效率高，正确率高</item>
         <item>单层CPU在线，IPU在线，IPU离线模式性能比较</item>
+        <item>OCR光学字符识别(Optical Character Recognition)技术</item>
     </string-array>
     <integer-array name="more_function_img">
         <item>@mipmap/more1</item>

@@ -59,7 +59,7 @@
         <activity
             android:name=".activity.SingleChartActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".activity.IPUTest"/>
+        <activity android:name=".activity.TextOcrAct"/>
     </application>
 
 </manifest>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/cf_layout_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/textocr_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="2">
+        <!--configuration button-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/checkBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="block"
+                android:textColor="@color/test_text_color"/>
+            <CheckBox
+                android:id="@+id/checkLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/test_text_color"
+                android:text="Line"/>
+            <CheckBox
+                android:id="@+id/checkChar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/test_text_color"
+                android:text="Char"/>
+            <CheckBox
+                android:id="@+id/checkRR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/test_text_color"
+                android:text="Redo mRect"/>
+            <Button
+                android:id="@+id/btn4ocr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/btn_bg"
+                android:textColor="@color/test_text_color"
+                android:text="OCR"/>
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/btn_bg"
+                android:textColor="@color/test_text_color"
+                android:text="UPDATE"/>
+        </LinearLayout>
+        <!--ImageView-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/textocrbg"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <!-- TextOcr Result-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@mipmap/image_bg">
+        <TextView
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/text_padding"
+            android:paddingRight="@dimen/text_padding"
+            android:textColor="@color/test_text_color"
+            android:text="@string/textocr_describle"/>
+    </LinearLayout>
+
+</LinearLayout>

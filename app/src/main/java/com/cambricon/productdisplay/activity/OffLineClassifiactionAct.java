@@ -59,7 +59,7 @@ public class OffLineClassifiactionAct extends BaseActivity implements CNNListene
         super.onCreate(savedInstanceState);
         init();
         setListener();
-        initLabels();
+        //initLabels();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -88,8 +88,8 @@ public class OffLineClassifiactionAct extends BaseActivity implements CNNListene
         offlineDB=new ClassificationDB(getApplicationContext());
         offlineDB.open();
         offLineCaffeClassification=new OffLineCaffeClassification();
-        offLineCaffeClassification.createModelClient(USING_SYNC);
-        mgr = getResources().getAssets();
+        //offLineCaffeClassification.createModelClient(USING_SYNC);
+        //mgr = getResources().getAssets();
     }
 
     /**
