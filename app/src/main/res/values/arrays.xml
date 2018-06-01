@@ -50,6 +50,10 @@
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
     </integer-array>
+    <string-array name="asset_image_array">
+        <item>faceimage/face.jpg</item>
+        <item>faceimage/face2.jpeg</item>
+    </string-array>
 
     <!--<color name="more_function_bgcolor">
         <item>@color/colorAccent</item>

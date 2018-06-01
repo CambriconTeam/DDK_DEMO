@@ -52,7 +52,6 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
     private TextView et;
     private ImageView iv;
     private Button btn4ocr;
-    private Button btnUpdate;
     private Paint paint;
     private Uri savedImage;
     private CheckBox checkBlock;
@@ -72,7 +71,8 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
                     String data = (String) msg.obj;
                     ClipboardManager cmb = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
                     cmb.setText(data);
-                    iv.setImageBitmap(bmDraw);
+                    Log.e(TAG,"handle message bmDraw="+bmDraw);
+                    //iv.setImageBitmap(bmDraw);
                     et.setText(data);
                     break;
                 default:
@@ -124,7 +124,6 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
         toolbar=findViewById(R.id.textocr_toolbar);
 
         btn4ocr = findViewById(R.id.btn4ocr);
-        btnUpdate = findViewById(R.id.btnUpdate);
 
         checkBlock = findViewById(R.id.checkBlock);
         checkBlock.setOnClickListener(this);
@@ -142,7 +141,6 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
 
         et.setMovementMethod(ScrollingMovementMethod.getInstance());
         btn4ocr.setOnClickListener(this);
-        btnUpdate.setOnClickListener(this);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.GREEN);
         paint.setStyle(Paint.Style.STROKE);
@@ -329,6 +327,7 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
             paint.setColor(Color.BLACK);
             canvas.drawRect(roi, paint);
         }
+        Log.e(TAG,"bmDraw="+bmDraw);
 
         Log.e(TAG, "lines.length:" + contents.size());
 
@@ -343,5 +342,6 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
         msg.what = 0;
         msg.obj = new Long(t1 - t0).toString() + "ms chars：" + result_final.length() + "  " + String.format("%.2f", (t1 - t0) * 1.0 / result_final.length()) + "ms/char" + "\n" + result_final;
         mHandler.sendMessage(msg);
+        Log.e(TAG,"sendMessage success");
     }
 }

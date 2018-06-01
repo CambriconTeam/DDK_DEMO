@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="2">
+        android:layout_weight="1">
         <!--configuration button-->
         <LinearLayout
             android:layout_width="0dp"
@@ -53,13 +53,6 @@
                 android:background="@mipmap/btn_bg"
                 android:textColor="@color/test_text_color"
                 android:text="OCR"/>
-            <Button
-                android:id="@+id/btnUpdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/btn_bg"
-                android:textColor="@color/test_text_color"
-                android:text="UPDATE"/>
         </LinearLayout>
         <!--ImageView-->
         <LinearLayout
@@ -69,8 +62,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/textocrbg"/>
-
+                android:background="@drawable/textocrbg"/>
         </LinearLayout>
 
     </LinearLayout>

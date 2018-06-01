@@ -31,6 +31,7 @@ import com.cambricon.productdisplay.db.FaceDetectDB;
 import com.cambricon.productdisplay.task.CNNListener;
 import com.cambricon.productdisplay.task.FaceDetectTask;
 import com.cambricon.productdisplay.task.MMListener;
+import com.cambricon.productdisplay.utils.AssetUtil;
 import com.cambricon.productdisplay.utils.Config;
 import com.cambricon.productdisplay.utils.ConvertUtil;
 import com.huawei.hiai.vision.common.ConnectionCallback;
@@ -86,6 +87,9 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
     private final int LOED_DETECT_101 = 4;
     private final int LOED_DETECT_101_END = 5;
 
+    private AssetUtil assetUtil;
+    private String[] imagepath;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +123,7 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
 
         mBtn_face_detector_begin.setOnClickListener(this);
         mBtn_face_detector_end.setOnClickListener(this);
+        assetUtil=new AssetUtil(getApplicationContext());
         if(!Config.getIsCPUMode(getApplicationContext())){
             //To connect HiAi Engine service using VisionBase
             VisionBase.init(FaceDetectorActivity.this,new ConnectionCallback(){
@@ -211,8 +216,10 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
                 Log.e(TAG, "File is not exist");
             }
         }else{
-            test=BitmapFactory.decodeResource(getResources(), R.drawable.face);
+            //test=BitmapFactory.decodeResource(getResources(), R.drawable.face);
+            test=assetUtil.getAssetImage(imagepath[index]);
             FaceDetectTask cnnTask = new FaceDetectTask(FaceDetectorActivity.this);
+            Log.e("huangyaling","test="+test);
             cnnTask.execute(test);
         }
 
@@ -300,6 +307,7 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
     public void onTaskCompleted(List<Face> faces) {
         if(isExist){
             Bitmap tempBmp= test.copy(Bitmap.Config.ARGB_8888, true);
+            Log.e("huangyaling","tempBmp="+tempBmp);
             if (faces == null || tempBmp==null) {
                 //tvFace.setText("not get face");
             } else {
@@ -339,8 +347,9 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
             mTV_face_detect_fps_time.setText(getResources().getString(R.string.test_fps)
                     + ConvertUtil.getFps(getFps(FaceDetectTask.forwardTime))
                     + getResources().getString(R.string.test_fps_units));
-            /*index++;
-            if (index < Config.faceImgArray.length) {
+            index++;
+            Log.e("huangyaling","index="+index+";imagepath length="+imagepath.length);
+            if (index < imagepath.length) {
                 executeImg();
             } else {
                 Toast.makeText(this, "检测结束", Toast.LENGTH_LONG).show();
@@ -349,7 +358,7 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
                 mBtn_face_detector_begin.setVisibility(View.VISIBLE);
                 mBtn_face_detector_end.setVisibility(View.GONE);
                 Log.i(TAG, "检测完成");
-            }*/
+            }
             Toast.makeText(this, "检测结束", Toast.LENGTH_LONG).show();
             mTv_face_detect_guide.setText(getString(R.string.face_detection_end_guide));
             isExist = false;
@@ -397,8 +406,8 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
         long startTime = SystemClock.uptimeMillis();
 
         Log.e(TAG, "loadModel: " + Config.getIsCPUMode(FaceDetectorActivity.this));
+        int i = 0;
         if(Config.getIsCPUMode(FaceDetectorActivity.this)){
-            int i = 0;
             while (i < Config.faceModelArray.length) {
                 File file = new File(Config.faceModelDir, Config.faceModelArray[i]);
                 if (file.exists()) {
@@ -411,6 +420,7 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
                 }
             }
         }else{
+            imagepath=assetUtil.getArrayImage();
             Log.i(TAG,"is ipu mode");
         }
         loadDTime = SystemClock.uptimeMillis() - startTime;
