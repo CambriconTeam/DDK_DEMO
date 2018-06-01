@@ -1,19 +1,16 @@
 package com.cambricon.productdisplay.activity;
 
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -267,16 +264,10 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
         if (isExist) {
             mIv_face_detector.setScaleType(ImageView.ScaleType.FIT_XY);
             mIv_face_detector.setImageBitmap(mResultFace);
-            Log.i(TAG, Config.faceImgArray[index] + " add into db");
-
             if (Config.getIsCPUMode(FaceDetectorActivity.this)) {
                 Log.w(TAG, "onTaskCompleted: "+index);
                 if(index>0){
                     mFaceDetectDB.addFaceDetection(Config.faceImgArray[index], String.valueOf((int) mDetectionTime), getFps(mDetectionTime));
-                }
-            } else {
-                if(index>0){
-                    mFaceDetectDB.addIPUFaceDetection(Config.faceImgArray[index], String.valueOf((int) mDetectionTime), getFps(mDetectionTime));
                 }
             }
             storeImage(mResultFace);
@@ -287,7 +278,6 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
                     + ConvertUtil.getFps(getFps(mDetectionTime))
                     + getResources().getString(R.string.test_fps_units));
 
-            Log.e(TAG, "startIndex: " + index);
             if (index < Config.faceImgArray.length) {
                 executeImg();
             } else {
@@ -307,7 +297,6 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
     public void onTaskCompleted(List<Face> faces) {
         if(isExist){
             Bitmap tempBmp= test.copy(Bitmap.Config.ARGB_8888, true);
-            Log.e("huangyaling","tempBmp="+tempBmp);
             if (faces == null || tempBmp==null) {
                 //tvFace.setText("not get face");
             } else {
@@ -344,11 +333,15 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
             mIv_face_detector.setImageBitmap(tempBmp);
             mTv_face_detect_time.setText(getResources().getString(R.string.test_time) +
                     String.valueOf(FaceDetectTask.forwardTime) + "ms");
-            mTV_face_detect_fps_time.setText(getResources().getString(R.string.test_fps)
-                    + ConvertUtil.getFps(getFps(FaceDetectTask.forwardTime))
-                    + getResources().getString(R.string.test_fps_units));
+            if(FaceDetectTask.forwardTime!=0){
+                mTV_face_detect_fps_time.setText(getResources().getString(R.string.test_fps)
+                        + ConvertUtil.getFps(getFps(FaceDetectTask.forwardTime))
+                        + getResources().getString(R.string.test_fps_units));
+                if(index>0){
+                    mFaceDetectDB.addIPUFaceDetection(imagepath[index], String.valueOf((int)FaceDetectTask.forwardTime), getFps(FaceDetectTask.forwardTime));
+                }
+            }
             index++;
-            Log.e("huangyaling","index="+index+";imagepath length="+imagepath.length);
             if (index < imagepath.length) {
                 executeImg();
             } else {
@@ -359,12 +352,6 @@ public class FaceDetectorActivity extends AppCompatActivity implements View.OnCl
                 mBtn_face_detector_end.setVisibility(View.GONE);
                 Log.i(TAG, "检测完成");
             }
-            Toast.makeText(this, "检测结束", Toast.LENGTH_LONG).show();
-            mTv_face_detect_guide.setText(getString(R.string.face_detection_end_guide));
-            isExist = false;
-            mBtn_face_detector_begin.setVisibility(View.VISIBLE);
-            mBtn_face_detector_end.setVisibility(View.GONE);
-            Log.i(TAG, "检测完成");
         }else{
             Log.d(TAG,"finish");
         }
