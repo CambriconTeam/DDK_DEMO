@@ -241,7 +241,7 @@ public class FaceDetectorData extends Fragment implements View.OnClickListener {
             String cpu_desc = getContext().getResources().getString(R.string.face_detection_chart_desc);
             String ipu_desc = getContext().getResources().getString(R.string.face_detection_chart_ipu_desc);
             XYMultipleSeriesDataset mDataSet = DataUtil.getDataSet(points, ipu_points, cpu_desc, ipu_desc);
-            XYMultipleSeriesRenderer mRefender = DataUtil.getRefender(2,100);
+            XYMultipleSeriesRenderer mRefender = DataUtil.getRefender(2,200);
             GraphicalView mGraphicalView = ChartFactory.getLineChartView(getContext(), mDataSet, mRefender);
             mLinearLayout.removeAllViews();
             mLinearLayout.addView(mGraphicalView);
