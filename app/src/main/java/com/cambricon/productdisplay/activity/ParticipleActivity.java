@@ -231,11 +231,6 @@ public class ParticipleActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        onDestroy();
-    }
 
     @Override
     public void onClick(View v) {

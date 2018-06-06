@@ -66,10 +66,16 @@ public class SegmentActivity extends AppCompatActivity {
     private ImageView resourseImg;
     private Bitmap resourseBitmap;
     private TextView test_guide;
+    private Button imgSegment;
 
     private String[] imgPath = {
         "segment1.png", "segment2.jpg", "segment3.png", "segment4.jpg",
         "segment5.jpg", "segment6.jpg", "segment7.jpg", "segment8.jpg"
+    };
+
+    private String[] imgArray={
+        "imgseg1.png","imgseg2.jpg","imgseg3.jpg","imgseg4.jpg",
+            "imgseg5.jpg","imgseg6.jpg"
     };
 
     private int index = 0;
@@ -106,7 +112,7 @@ public class SegmentActivity extends AppCompatActivity {
         initService = findViewById(R.id.load_caffe);
         resourseImg = findViewById(R.id.segment_resourse);
         test_guide = findViewById(R.id.test_guide);
-
+        imgSegment = findViewById(R.id.img_segment_begin);
 
         segment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +133,47 @@ public class SegmentActivity extends AppCompatActivity {
 
             }
         });
+
+        imgSegment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                segment_describe.setVisibility(View.GONE);
+                resourseImg.setVisibility(View.VISIBLE);
+                test_guide.setVisibility(View.GONE);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            startImgSegment();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        });
+
+    }
+
+    private void startImgSegment() throws IOException {
+        InputStream is = getAssets().open("hiai/imgseg/"+imgArray[index%imgArray.length]);
+        Bitmap bitmap = BitmapFactory.decodeStream(is);
+        resourseBitmap = bitmap;
+        Frame frame = new Frame();
+        frame.setBitmap(bitmap);
+        ImageSegmentation ism = new ImageSegmentation (SegmentActivity.this);
+        SegmentationConfiguration sc = new SegmentationConfiguration();
+        sc. setSegmentationType (SegmentationConfiguration.TYPE_SEMANTIC);
+        ism.setSegmentationConfiguration(sc);
+        ImageResult sr = ism.doSegmentation (frame, null);
+        int resultCode = sr.getResultCode();
+        result = sr.getBitmap();
+
+        if (resultCode == 0) {
+            handler.sendEmptyMessage(SEGMENT_RESULT);
+        } else {
+            handler.sendEmptyMessage(SEGMENT_ERROR);
+        }
 
 
     }

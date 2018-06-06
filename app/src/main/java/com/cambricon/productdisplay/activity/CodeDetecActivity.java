@@ -14,27 +14,25 @@ import android.view.View;
 
 import com.cambricon.productdisplay.R;
 
-//API
+
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.huawei.hiai.vision.visionkit.common.Frame;
-import com.huawei.hiai.vision.barcode.BarcodeDetector;
-
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import com.huawei.hiai.vision.common.VisionBase;
-import com.huawei.hiai.vision.common.ConnectionCallback;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import org.json.JSONObject;
 
-import com.huawei.hiai.vision.visionkit.common.Frame;//加载Frame类
-import com.huawei.hiai.vision.face.FaceParsing;//加载人脸解析方法类
-import com.huawei.hiai.vision.visionkit.image.ImageResult;//加载返回结果类
-import com.huawei.hiai.vision.common.VisionBase;//加载连接服务的静态类
-import com.huawei.hiai.vision.common.ConnectionCallback;//加载连接服务的回调函数
+//API
+import com.google.gson.JsonObject;
+import com.huawei.hiai.vision.visionkit.common.Frame;
+import com.huawei.hiai.vision.barcode.BarcodeDetector;
+import com.huawei.hiai.vision.common.VisionBase;
+import com.huawei.hiai.vision.common.ConnectionCallback;
+import com.huawei.hiai.vision.visionkit.barcode.Barcode;
+
 
 public class CodeDetecActivity extends AppCompatActivity {
     private final String TAG = "CodeDetecActivity";
@@ -45,6 +43,10 @@ public class CodeDetecActivity extends AppCompatActivity {
     private TextView codeResult;
 
     private final int CODE_RESULT = 1;
+    private final int CODE_ERROR = 2;
+    private Barcode resultBarcode;
+    private ImageView codeResourse;
+    private Bitmap resourse;
 
     private Handler handler = new Handler() {
         @Override
@@ -52,11 +54,24 @@ public class CodeDetecActivity extends AppCompatActivity {
             switch (msg.what){
                 case CODE_RESULT:
                     codeResult.setBackgroundResource(R.color.color_white);
-                    codeResult.setText(String.valueOf(jsonRes));
+                    codeResult.setText(resultBarcode.getText().getText());
+                    codeResourse.setImageBitmap(resourse);
+                    break;
+                case 2:
+                    codeResult.setBackgroundResource(R.color.color_white);
+                    codeResult.setText("No barcode detected!");
+                    Toast.makeText(CodeDetecActivity.this, "No barcode detected!", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
     };
+
+    //contentTypes=9
+    private String[] codeArray = {
+        "code1.png","code2.png","code4.png"
+    };
+
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +104,15 @@ public class CodeDetecActivity extends AppCompatActivity {
         codeDetecte = findViewById(R.id.codeDetec_begin);
         code_describe = findViewById(R.id.code_describe);
         codeResult = findViewById(R.id.code_result);
+        codeResourse = findViewById(R.id.code_resourse);
+
 
         codeDetecte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 code_describe.setVisibility(View.GONE);
                 code_describe.setBackgroundColor(getResources().getColor(R.color.color_white));
+                codeResourse.setVisibility(View.VISIBLE);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -134,21 +152,28 @@ public class CodeDetecActivity extends AppCompatActivity {
 
     public void setCodeDetecte() throws IOException {
 
-        InputStream is = getAssets().open("hiai/code/code1.png");
+        InputStream is = getAssets().open("hiai/code/"+codeArray[index%codeArray.length]);
         Bitmap bitmap = BitmapFactory.decodeStream(is);
-
+        resourse = bitmap;
         BarcodeDetector detector = new BarcodeDetector(CodeDetecActivity.this);
         Frame frame = new Frame();
         frame.setBitmap(bitmap);
-        jsonRes = detector.detect(frame, null);
+        JSONObject jsonRes = detector.detect(frame, null);
 
-        handler.sendEmptyMessage(CODE_RESULT);
+        List<Barcode> list = detector.convertResult(jsonRes);
+        if(null==list||list.size()==0){
+            handler.sendEmptyMessage(CODE_ERROR);
+        }else{
+            resultBarcode = list.get(0);
+            handler.sendEmptyMessage(CODE_RESULT);
+        }
 
-
+        index++;
 
     }
 
-    private JSONObject jsonRes;
+
+
 
 
 }

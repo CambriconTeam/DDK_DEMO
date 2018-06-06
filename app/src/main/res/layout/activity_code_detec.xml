@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/test_text_color"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/classification_data_guide"/>
+                    android:text="码检测"/>
 
                 <TextView
                     android:id="@+id/test_result"
@@ -56,20 +56,12 @@
                     android:textColor="@color/test_text_color"
                     android:text="@string/test_result" />
 
-                <TextView
-                    android:id="@+id/test_time"
+                <ImageView
+                    android:id="@+id/code_resourse"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/test_time"
-                    android:textColor="@color/test_text_color" />
-                <TextView
-                    android:id="@+id/test_fps"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/test_fps"
-                    android:textColor="@color/test_text_color" />
+                    />
 
             </LinearLayout>
 
@@ -87,7 +79,7 @@
                     android:background="@mipmap/btn_bg"
                     android:textColor="@color/test_text_color"
                     android:textSize="@dimen/btn_text_size"
-                    android:text="@string/begin_btn"/>
+                    android:text="码检测"/>
 
             </RelativeLayout>
 
@@ -110,6 +102,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="20dp"
                 android:scaleType="fitXY"
+                android:textColor="@color/test_background"
                 android:background="@mipmap/classification_bg"
                 />
             <ProgressBar
@@ -138,7 +131,7 @@
                 android:paddingRight="@dimen/param_padding_left"
                 android:paddingTop="@dimen/param_padding_left"
                 android:background="@mipmap/text_bg"
-                android:text="@string/classification_imge_guide"
+                android:text="码检测"
                 android:textColor="@color/test_text_color" />
         </RelativeLayout>
     </LinearLayout>
