@@ -94,4 +94,14 @@
     <string name="single_layer_chart_y">Single layer Execution time(lgN:ms)</string>
     <string name="single_describle">单层网络性能比较：\n\t\t\t\t主要用来比较单层网络CPU模式在线模型，IPU模式在线和离线模型处理数据的性能比较</string>
     <string name="textocr_describle">OCR光学字符识别(Optical Character Recognition)技术，是通过扫描等光学输入方式将各种票据、报刊、书籍、文稿及其它印刷品的文字转化为图像信息，再利用文字识别技术将图像信息转化为可以使用的计算机输入技术。</string>
+    <string name="segment_title">人像分割</string>
+    <string name="participle_title">分词</string>
+
+    <string name="participle_test1">随着信息技术的发展，网络信息量暴增，文本信息得到快速增长，信息成几何级增长逐步成为当今社会的主要特征。为了提取文本关键信息，在搜索引擎等领域，使得分词变得尤为重要。分词作为自然语言处理领域的基础研究，衍生出各类不同的文本处理相关应用。</string>
+    <string name="participle_test3">我要打开蓝牙</string>
+    <string name="participle_test4">您个人信用卡07月账单￥198.00，还款日07月27日，点cmbt.cn/zZyF6N9avld10i分期送积分【招商银行】</string>
+    <string name="participle_test2">我要看刺激的电影速度与激情</string>
+
+    <string name="code_title">码检测</string>
+    <string name="segment_message">人像分割是指的将图片中的人像和背景进行分离，分割结果表现为人像和背景区分呈现，人像区域为白色，背景为黑色。</string>
 </resources>

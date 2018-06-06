@@ -6,6 +6,7 @@
     <color name="test_background">#292421</color>
     <color name="news_item_touch">#eeeeee</color>
     <color name="news_item">#ffffff</color>
+    <color name="color_white">#ffffff</color>
     <color name="news_item_line">#AAAAAA</color>
     <color name="main_line">#256CE0</color>
     <color name="gridview_bg">#DCDCDC</color>

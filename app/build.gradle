@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.cambricon.productdisplay"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -48,6 +48,10 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.alibaba.android:ultraviewpager:1.0.4@aar'
     implementation 'com.kyleduo.switchbutton:library:2.0.0'
-    compile(name: 'huawei-hiai-vision-8.1.0.300', ext: 'aar')
-    compile 'com.google.code.gson:gson:2.8.1'
+
+    compile(name: 'huawei-hiai-nlu-8.1.0.302', ext: 'aar')
+    compile(name: 'huawei-hiai-asr-8.1.0.302', ext: 'aar')
+    compile(name: 'huawei-hiai-vision-8.1.0.302', ext: 'aar')
+
+    implementation 'com.google.code.gson:gson:2.8.1'
 }

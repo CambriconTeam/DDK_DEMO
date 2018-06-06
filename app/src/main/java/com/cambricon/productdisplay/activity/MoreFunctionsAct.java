@@ -108,15 +108,19 @@ public class MoreFunctionsAct extends AppCompatActivity {
                         startActivity(intent3);
                         break;
                     case 4:
-                        /*Intent intent4 = new Intent(MoreFunctionsAct.this, ClassificationActivity.class);
-                        intent4.putExtra("deploy_prototxt", false);
-                        startActivity(intent4);*/
+                        //人像分割
+                        Intent intent4 = new Intent(MoreFunctionsAct.this,SegmentActivity.class);
+                        startActivity(intent4);
                         break;
                     case 5:
-                        /*Intent intent5 = new Intent(MoreFunctionsAct.this, SingleNetFuncAct.class);
-                        startActivity(intent5);*/
+                        //分词
+                        Intent intent5 = new Intent(MoreFunctionsAct.this,ParticipleActivity.class);
+                        startActivity(intent5);
                         break;
                     case 6:
+                        //码检测
+                        Intent intent6 = new Intent(MoreFunctionsAct.this,CodeDetecActivity.class);
+                        startActivity(intent6);
                         break;
                     case 7:
                         break;

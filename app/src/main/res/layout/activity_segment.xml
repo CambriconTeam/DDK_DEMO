@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/cf_layout_bg"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/segment_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/load_caffe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人像分割服务未初始化"
+                android:textColor="@android:color/white"
+                android:paddingTop="15dp"
+                android:paddingBottom="@dimen/param_padding_bottom"/>
+
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="150dp"
+                android:paddingLeft="@dimen/param_padding_left"
+                android:background="@mipmap/param_bg"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/test_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/test_text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:text="人像检测"/>
+
+                <ImageView
+                    android:id="@+id/segment_resourse"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/segment_begin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@mipmap/btn_bg"
+                    android:textColor="@color/test_text_color"
+                    android:textSize="@dimen/btn_text_size"
+                    android:text="@string/begin_btn"/>
+
+                <Button
+                    android:id="@+id/classification_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@mipmap/btn_bg"
+                    android:textColor="@color/test_text_color"
+                    android:textSize="@dimen/btn_text_size"
+                    android:text="@string/end_btn"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@mipmap/image_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/segment_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:scaleType="fitXY"
+                android:background="@color/test_text_color"
+                android:src="@mipmap/classification_bg" />
+            <ProgressBar
+                android:id="@+id/ipu_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progressbar"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/ipu_pro_text"
+                android:layout_below="@id/ipu_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/progress_ipu"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:textColor="@color/test_text_color"/>
+
+            <TextView
+                android:id="@+id/segment_describe"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingLeft="@dimen/param_padding_left"
+                android:paddingRight="@dimen/param_padding_left"
+                android:paddingTop="@dimen/param_padding_left"
+                android:background="@mipmap/text_bg"
+                android:text="@string/segment_message"
+                android:textColor="@color/test_text_color" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

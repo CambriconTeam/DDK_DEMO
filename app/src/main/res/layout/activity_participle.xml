@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/cf_layout_bg"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/participle_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/load_caffe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
+                android:text="服务暂未初始化"
+                android:textColor="@android:color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/param_bg"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/param_padding_left">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/text1"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/btn_bg"
+                        android:text="测例1"
+                        android:textColor="@color/test_text_color"
+                        android:textSize="@dimen/btn_text_size" />
+
+                    <Button
+                        android:id="@+id/text2"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/btn_bg"
+                        android:text="测例2"
+                        android:textColor="@color/test_text_color"
+                        android:textSize="@dimen/btn_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/text3"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/btn_bg"
+                        android:text="测例3"
+
+                        android:textColor="@color/test_text_color"
+                        android:textSize="@dimen/btn_text_size" />
+
+                    <Button
+                        android:id="@+id/text4"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/btn_bg"
+                        android:text="测例4"
+                        android:textColor="@color/test_text_color"
+                        android:textSize="@dimen/btn_text_size" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/participle_begin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/test_assistant"
+                    android:layout_marginTop="6dp"
+                    android:background="@mipmap/btn_bg"
+                    android:text="分词检测"
+                    android:textColor="@color/test_text_color"
+                    android:textSize="@dimen/btn_text_size" />
+
+                <Button
+                    android:id="@+id/test_assistant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:background="@mipmap/btn_bg"
+                    android:layout_marginTop="8dp"
+                    android:text="助手意图识别"
+                    android:textColor="@color/test_text_color"
+                    android:textSize="@dimen/btn_text_size" />
+
+                <Button
+                    android:id="@+id/imAssistant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/participle_begin"
+                    android:layout_marginTop="6dp"
+                    android:background="@mipmap/btn_bg"
+                    android:text="IM类意图检测"
+                    android:textColor="@color/test_text_color"
+                    android:textSize="@dimen/btn_text_size" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@mipmap/image_bg"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <EditText
+                android:id="@+id/testText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:gravity="top"
+                android:maxLength="500"
+                android:text="我要看刺激的电影速度与激情"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp" />
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:background="@color/color_white"
+                android:fadingEdge="vertical"
+                android:scrollbars="vertical">
+
+                <TextView
+                    android:id="@+id/result_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_white"
+                    android:orientation="horizontal"
+                    android:text="分词检测结果返回。"
+                    android:textColor="@color/more_bgcolor_color2">
+
+
+                </TextView>
+            </ScrollView>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

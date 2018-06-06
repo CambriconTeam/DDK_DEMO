@@ -27,7 +27,8 @@ public class MoreFunctionRecylerAdaper extends RecyclerView.Adapter<MoreFunction
 
     private int[] iconBack = {
             R.color.more_bgcolor_color1,R.color.more_bgcolor_color3,R.color.more_bgcolor_color2,
-            R.color.more_bgcolor_color5,R.color.more_bgcolor_color4
+            R.color.more_bgcolor_color5,R.color.more_bgcolor_color4,R.color.more_bgcolor_color5,
+            R.color.more_bgcolor_color5
     };
 
     public MoreFunctionRecylerAdaper(Context context, String[] datas, String[] summary, Integer[] mdraw) {
