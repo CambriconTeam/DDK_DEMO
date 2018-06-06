@@ -32,6 +32,11 @@
         <item>人像分割</item>
         <item>分词</item>
         <item>码检测</item>
+        <item>图片标签分类</item>
+        <item>场景检测</item>
+        <item>美学评分</item>
+        <item>图像超分辨率</item>
+        <item>人脸解析</item>
     </string-array>
     <string-array name="more_functions_summary">
         <item>加层网络离线模型图片分类，效率高，正确率高</item>
@@ -41,10 +46,20 @@
         <item>人像分割</item>
         <item>分词</item>
         <item>码检测</item>
+        <item>图片标签分类</item>
+        <item>场景检测</item>
+        <item>美学评分</item>
+        <item>图像超分辨率</item>
+        <item>人脸解析</item>
     </string-array>
     <integer-array name="more_function_img">
         <item>@mipmap/more1</item>
         <item>@mipmap/more3</item>
+        <item>@mipmap/more2</item>
+        <item>@mipmap/more5</item>
+        <item>@mipmap/more4</item>
+        <item>@mipmap/more4</item>
+        <item>@mipmap/more4</item>
         <item>@mipmap/more2</item>
         <item>@mipmap/more5</item>
         <item>@mipmap/more4</item>
@@ -57,6 +72,11 @@
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
     </integer-array>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/cf_layout_bg"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgViewSrc"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="@mipmap/image_bg"
+
+            />
+
+        <ImageView
+            android:id="@+id/imgViewSR"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="@mipmap/image_bg"
+           />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/test_text_color"
+            android:text="@string/super_resolution_describe"/>
+
+        <Button
+            android:id="@+id/btn_srcimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_bg"
+            android:text="相册"
+            android:textColor="@color/test_text_color"/>
+
+        <Button
+            android:id="@+id/btn_startSR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_bg"
+            android:text="开始"
+            android:textColor="@color/test_text_color"/>
+
+        <TextView
+            android:id="@+id/SISR_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/test_text_color"
+            />
+    </LinearLayout>
+
+</LinearLayout>

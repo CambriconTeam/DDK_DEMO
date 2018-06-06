@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/cf_layout_bg"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_face_parsing"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:background="@mipmap/image_bg"
+
+            />
+
+        <ImageView
+            android:id="@+id/iv_face_parsing_dst"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:background="@mipmap/image_bg"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/face_parsing_describle"
+            android:textColor="@color/test_text_color"
+            />
+
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/btn_storage"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/btn_bg"
+                android:text="相册"
+                android:textColor="@color/test_text_color"/>
+
+            <Button
+                android:id="@+id/btn_camera"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/btn_bg"
+                android:text="拍照"
+                android:textColor="@color/test_text_color"/>
+
+            <Button
+                android:id="@+id/btn_fp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/btn_bg"
+                android:text="开始"
+                android:textColor="@color/test_text_color"/>
+
+
+        <TextView
+            android:id="@+id/tv_face_parsing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/test_text_color"
+            />
+    </LinearLayout>
+
+</LinearLayout>

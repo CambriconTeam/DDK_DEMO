@@ -123,9 +123,30 @@ public class MoreFunctionsAct extends AppCompatActivity {
                         startActivity(intent6);
                         break;
                     case 7:
+                        //图片标签分类
+                        Intent intent7 = new Intent(MoreFunctionsAct.this,LabelDetectorActivity.class);
+                        startActivity(intent7);
                         break;
-
-
+                    case 8:
+                        //场景检测
+                        Intent intent8 = new Intent(MoreFunctionsAct.this,SceneDetectorActivity.class);
+                        startActivity(intent8);
+                        break;
+                    case 9:
+                        //美学评分
+                        Intent intent9 = new Intent(MoreFunctionsAct.this,AestheticsScoreActivity.class);
+                        startActivity(intent9);
+                        break;
+                    case 10:
+                        //图像超分辨率
+                        Intent intent10 = new Intent(MoreFunctionsAct.this,SuperResolutionActivity.class);
+                        startActivity(intent10);
+                        break;
+                    case 11:
+                        //人脸解析
+                        Intent intent11 = new Intent(MoreFunctionsAct.this,FaceParsingActivity.class);
+                        startActivity(intent11);
+                        break;
                 }
             }
         });

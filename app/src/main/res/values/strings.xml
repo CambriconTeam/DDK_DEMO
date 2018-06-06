@@ -104,4 +104,11 @@
 
     <string name="code_title">码检测</string>
     <string name="segment_message">人像分割是指的将图片中的人像和背景进行分离，分割结果表现为人像和背景区分呈现，人像区域为白色，背景为黑色。</string>
+    <string name="label_detector_describle">图片分类标签是基于深度学习方法，识别图片中物体、场景、行为等信息，返回对应标签信息，如：花、鸟、鱼、虫、汽车、建筑等等，以应用于各类基于图片内容理解的智能业务，如图库照片自动分类整理、社交图片识别分享等。</string>
+    <string name="aesthetics_score_describle">从多维度判断图像质量，为图像打分，所评估的分数，不仅能对图像的失焦、抖动等技术因素进行评价，还可以从歪斜、色彩、构图等角度评判主观“美”的感受。</string>
+    <string name="face_parsing_describle">人脸解析，是将人的头部包含人脸五官构成进行分解，得到头发、面部皮肤、眼睛、眉毛、鼻子、嘴、耳朵等区域。</string>
+    <string name="scene_detector_describe">通过识别图像内容所属场景，对输入图片进行快速分类,包括动物、绿植、食物、建筑、汽车等多种类别，识别准确率高。</string>
+    <string name="super_resolution_describe">单张图片空域超分辨率（SISR：Signle Image Super-Resolution），即给定单一一张图片，使用智能方法将其放大，令其分辨率更高，得到比传统放大更加清晰的细节纹理。</string>
 </resources>
+
+

@@ -68,6 +68,11 @@
             android:screenOrientation="landscape"></activity>
         <activity android:name=".activity.CodeDetecActivity"
             android:screenOrientation="landscape"></activity>
+        <activity android:name=".activity.AestheticsScoreActivity"/>
+        <activity android:name=".activity.SuperResolutionActivity" />
+        <activity android:name=".activity.FaceParsingActivity" />
+        <activity android:name=".activity.LabelDetectorActivity"/>
+        <activity android:name=".activity.SceneDetectorActivity"/>
     </application>
 
 </manifest>

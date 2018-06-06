@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="huawei-hiai-asr-8.1.0.302:@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/huawei-hiai-asr-8.1.0.302.aar/f3d56d592568f52e1aa8391296a5978f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/huawei-hiai-asr-8.1.0.302.aar/f3d56d592568f52e1aa8391296a5978f/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
