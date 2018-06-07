@@ -165,6 +165,12 @@ public class MoreFunctionsAct extends AppCompatActivity {
                         intent14.putExtra("BaseToolBarTitle", getString(R.string.face_compare));
                         startActivity(intent14);
                         break;
+                    case 15:
+                        //人脸属性
+                        Intent intent15 = new Intent(MoreFunctionsAct.this,FaceAttributeActivity.class);
+                        intent15.putExtra("BaseToolBarTitle", getString(R.string.face_attribute));
+                        startActivity(intent15);
+                        break;
                 }
             }
         });

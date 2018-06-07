@@ -76,7 +76,8 @@
         <activity android:name=".activity.SceneDetectorActivity" />
         <activity android:name=".activity.DocumentDetectionAct" />
         <activity android:name=".activity.WordSplitAct" />
-        <activity android:name=".activity.FaceCompareActivity"></activity>
+        <activity android:name=".activity.FaceCompareActivity" />
+        <activity android:name=".activity.FaceAttributeActivity"></activity>
     </application>
 
 </manifest>
