@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="@mipmap/cf_layout_bg"
     android:orientation="vertical"
-    tools:context="com.cambricon.productdisplay.activity.WordSplitAct">
+    tools:context="com.cambricon.productdisplay.activity.FaceCompareActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/world_split_toolbar"
+        android:id="@+id/face_compare_toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -20,18 +20,40 @@
         android:layout_weight="2"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_analyze"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2"
-            android:background="@mipmap/btn_bg"
-            android:text="analyze"
-            android:textColor="@color/test_text_color" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_source"
+            <Button
+                android:id="@+id/btn_img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/btn_bg"
+                android:text="Image1"
+                android:textColor="@color/test_text_color" />
+
+            <Button
+                android:id="@+id/btn_img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/btn_bg"
+                android:text="Image2"
+                android:textColor="@color/test_text_color" />
+
+            <Button
+                android:id="@+id/btn_compare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@mipmap/btn_bg"
+                android:text="compare"
+                android:textColor="@color/test_text_color" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/image"
             android:layout_width="0dp"
             android:layout_height="300dp"
             android:layout_gravity="center"
@@ -39,7 +61,7 @@
             android:background="@mipmap/image_bg"
             android:paddingLeft="@dimen/text_padding"
             android:paddingRight="@dimen/text_padding"
-            android:text="@string/world_split_describle"
+            android:text="@string/face_compare_describle"
             android:textColor="@color/test_text_color" />
     </LinearLayout>
 
@@ -49,15 +71,14 @@
         android:layout_weight="1"
         android:background="@mipmap/image_bg"
         android:gravity="center">
-
         <TextView
-            android:id="@+id/et_result"
+            android:id="@+id/tv_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/text_padding"
             android:paddingRight="@dimen/text_padding"
-            android:text="@string/world_split_describle"
+            android:text="@string/face_compare_describle"
             android:textColor="@color/test_text_color" />
 
     </LinearLayout>

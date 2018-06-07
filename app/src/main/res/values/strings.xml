@@ -85,6 +85,7 @@
     <string name="offline_detection">加层离线目标检测</string>
     <string name="document_detection">文档检测校正</string>
     <string name="word_split">词性标注</string>
+    <string name="face_compare">人脸比对</string>
     <string name="offline_dialog_title">操作提示</string>
     <string name="offline_dialog_content">此功能需要在主页侧拉菜单打开IPU模式</string>
     <string name="title_data_detection_ipu">IPU模式\n(ResNet50/Fast-RCNN)</string>
@@ -113,6 +114,7 @@
     <string name="super_resolution_describe">单张图片空域超分辨率（SISR：Signle Image Super-Resolution），即给定单一一张图片，使用智能方法将其放大，令其分辨率更高，得到比传统放大更加清晰的细节纹理。</string>
     <string name="document_detection_describle">文档校验能够实现对文档翻拍过程的辅助增强功能，自动识别图片中的文档，返回文档在原图中的位置信息。这里的文档可泛指外形方正的事物，比如书本、相片、画框等。根据文档在原始图片中的位置信息校正文档的拍摄角度，自动将拍摄视角调整到正对文档的角度上。</string>
     <string name="world_split_describle">随着信息技术的发展，网络信息量暴增，文本信息得到快速增长，信息成几何级增长逐步成为当今社会的主要特征。为了提取文本关键信息，在搜索引擎等领域，使得分词变得尤为重要。通过分词，理解文本所要表达的正确含义。</string>
+    <string name="face_compare_describle">通过识别并提取人脸特征，对人像进行高精度比对，给出置信度分数，判断对象是否为同一个人。使用人脸比对技术，可应用于实现对图库照片的智能分类管理等场景中。基于领先的端侧智能图像识别算法，对人脸识别准确度高，让应用更具最佳体验。</string>
 </resources>
 
 

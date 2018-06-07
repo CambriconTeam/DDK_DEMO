@@ -39,6 +39,7 @@
         <item>人脸解析</item>
         <item>文档检测校正</item>
         <item>词性标注</item>
+        <item>人脸比对</item>
     </string-array>
     <string-array name="more_functions_summary">
         <item>加层网络离线模型图片分类，效率高，正确率高</item>
@@ -55,6 +56,7 @@
         <item>人脸解析</item>
         <item>文档校验能够实现对文档翻拍过程的辅助增强功能</item>
         <item>分词作为自然语言处理领域的基础研究，衍生出各类不同的文本处理应用</item>
+        <item>通过识别并提取人脸特征，进行高精度比对，判断对象是否为同一个人。</item>
 
     </string-array>
     <integer-array name="more_function_img">
@@ -72,6 +74,7 @@
         <item>@mipmap/more4</item>
         <item>@mipmap/more3</item>
         <item>@mipmap/more1</item>
+        <item>@mipmap/more1</item>
     </integer-array>
    <integer-array name="more_function_bgcolor">
         <item>@color/colorAccent</item>
@@ -79,6 +82,7 @@
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>

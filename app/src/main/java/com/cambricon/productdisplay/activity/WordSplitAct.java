@@ -107,6 +107,7 @@ public class WordSplitAct extends AppCompatActivity implements View.OnClickListe
                     result=buffer.toString();
                     et_result.setText(result);
                 }
+                break;
 
 
 

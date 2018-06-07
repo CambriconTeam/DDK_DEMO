@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +18,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cambricon.productdisplay.R;
 import com.huawei.hiai.vision.visionkit.common.Frame;
@@ -43,9 +44,15 @@ public class DocumentDetectionAct extends AppCompatActivity implements View.OnCl
     private Button btnUpdate;
     private static final int REQUEST_CHOOSE_PHOTO_CODE4Gallery = 2;
     private Bitmap bitmap;
-
-
     private String path;
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            iv.setImageBitmap((Bitmap) msg.obj);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +96,8 @@ public class DocumentDetectionAct extends AppCompatActivity implements View.OnCl
         btn_gallery = findViewById(R.id.btn_gallery);
         btnUpdate = findViewById(R.id.btnRefine);
         iv = findViewById(R.id.image);
-
         btn_gallery.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
-
     }
 
 
@@ -139,17 +144,24 @@ public class DocumentDetectionAct extends AppCompatActivity implements View.OnCl
                 startActivityForResult(intent, requestCode);
                 break;
             case R.id.btnRefine:
-                // 构造校验器
-                DocRefine docResolution = new DocRefine (this);
-                Frame frame = new Frame();
-                frame.setBitmap(bitmap);
-//              进行文档检测
-                JSONObject jsonDoc = docResolution.docDetect(frame, null);
-                DocCoordinates sc = docResolution.convertResult(jsonDoc);
-                ImageResult imageResult = docResolution.docRefine(frame, sc, null);
-                bitmap= imageResult.getBitmap();
-                iv.setImageBitmap(bitmap);
-
+                new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        // 构造校验器
+                        DocRefine docResolution = new DocRefine (DocumentDetectionAct.this);
+                        Frame frame = new Frame();
+                        frame.setBitmap(bitmap);
+        //              进行文档检测
+                        JSONObject jsonDoc = docResolution.docDetect(frame, null);
+                        DocCoordinates sc = docResolution.convertResult(jsonDoc);
+                        ImageResult imageResult = docResolution.docRefine(frame, sc, null);
+                        Bitmap bitmap= imageResult.getBitmap();
+                        Message message = Message.obtain();
+                        message.obj = bitmap;
+                        handler.sendMessage(message);
+                    }
+                }.start();
             default:
                 break;
         }
