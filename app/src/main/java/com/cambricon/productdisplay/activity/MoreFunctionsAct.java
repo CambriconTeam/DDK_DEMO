@@ -147,6 +147,18 @@ public class MoreFunctionsAct extends AppCompatActivity {
                         Intent intent11 = new Intent(MoreFunctionsAct.this,FaceParsingActivity.class);
                         startActivity(intent11);
                         break;
+                    case 12:
+                        //文档检测校正
+                        Intent intent12 = new Intent(MoreFunctionsAct.this,DocumentDetectionAct.class);
+                        intent12.putExtra("BaseToolBarTitle", getString(R.string.document_detection));
+                        startActivity(intent12);
+                        break;
+                    case 13:
+                        //词性标注
+                        Intent intent13 = new Intent(MoreFunctionsAct.this,WordSplitAct.class);
+                        intent13.putExtra("BaseToolBarTitle", getString(R.string.word_split));
+                        startActivity(intent13);
+                        break;
                 }
             }
         });

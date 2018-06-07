@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/cf_layout_bg"
+    android:orientation="vertical"
+    tools:context="com.cambricon.productdisplay.activity.WordSplitAct">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/world_split_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="2"
+    android:orientation="horizontal"
+    >
+    <Button
+        android:id="@+id/btn_analyze"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:background="@mipmap/btn_bg"
+        android:textColor="@color/test_text_color"
+        android:text="analyze"/>
+    <EditText
+        android:id="@+id/et_source"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_weight="4"
+        android:layout_gravity="center"
+        android:paddingLeft="@dimen/text_padding"
+        android:paddingRight="@dimen/text_padding"
+        android:background="@mipmap/image_bg"
+        android:text="@string/world_split_describle"
+        android:textColor="@color/test_text_color"
+        />
+
+
+
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@mipmap/image_bg"
+    android:gravity="center"
+    >
+    <TextView
+        android:id="@+id/et_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/text_padding"
+        android:paddingRight="@dimen/text_padding"
+        android:textColor="@color/test_text_color"
+        android:text="@string/world_split_describle"/>
+
+</LinearLayout>
+
+
+
+
+
+</LinearLayout>

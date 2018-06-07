@@ -65,14 +65,17 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ParticipleActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activity.CodeDetecActivity"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activity.AestheticsScoreActivity"/>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.CodeDetecActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".activity.AestheticsScoreActivity" />
         <activity android:name=".activity.SuperResolutionActivity" />
         <activity android:name=".activity.FaceParsingActivity" />
-        <activity android:name=".activity.LabelDetectorActivity"/>
-        <activity android:name=".activity.SceneDetectorActivity"/>
+        <activity android:name=".activity.LabelDetectorActivity" />
+        <activity android:name=".activity.SceneDetectorActivity" />
+        <activity android:name=".activity.DocumentDetectionAct" />
+        <activity android:name=".activity.WordSplitAct"></activity>
     </application>
 
 </manifest>
