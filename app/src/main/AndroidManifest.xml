@@ -79,6 +79,7 @@
         <activity android:name=".activity.FaceCompareActivity" />
         <activity android:name=".activity.FaceAttributeActivity"></activity>
         <activity android:name=".activity.HeadPoseActivity"></activity>
+        <activity android:name=".activity.FaceFeaturesDetectActivity"></activity>
     </application>
 
 </manifest>

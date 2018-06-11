@@ -176,6 +176,12 @@ public class MoreFunctionsAct extends AppCompatActivity {
                         Intent intent16 = new Intent(MoreFunctionsAct.this,HeadPoseActivity.class);
                         intent16.putExtra("BaseToolBarTitle","人脸朝向识别");
                         startActivity(intent16);
+                    case 17:
+                        //五官特征检测
+                        Intent intent17 = new Intent(MoreFunctionsAct.this,FaceFeaturesDetectActivity.class);
+                        intent17.putExtra("BaseToolBarTitle", getString(R.string.face_feature));
+                        startActivity(intent17);
+                        break;
                 }
             }
         });

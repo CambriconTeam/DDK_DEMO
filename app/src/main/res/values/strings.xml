@@ -87,6 +87,7 @@
     <string name="word_split">词性标注</string>
     <string name="face_compare">人脸比对</string>
     <string name="face_attribute">人脸属性</string>
+    <string name="face_feature">五官特征检测</string>
     <string name="offline_dialog_title">操作提示</string>
     <string name="offline_dialog_content">此功能需要在主页侧拉菜单打开IPU模式</string>
     <string name="title_data_detection_ipu">IPU模式\n(ResNet50/Fast-RCNN)</string>
@@ -97,6 +98,7 @@
     <string name="single_toolbar">单层网络性能比较</string>
     <string name="single_layer_chart_y">Single layer Execution time(lgN:ms)</string>
     <string name="single_describle">单层网络性能比较：\n\t\t\t\t主要用来比较单层网络CPU模式在线模型，IPU模式在线和离线模型处理数据的性能比较</string>
+    <string name="face_feature_detect">对输入图像进行人脸五官特征检测，返回代表五官轮廓位置的关键点坐标（目前数量为68个landmark点）。可以为美颜处理、人脸建模、表情识别等后续算法进一步处理提供输入。</string>
     <string name="textocr_describle">OCR光学字符识别(Optical Character Recognition)技术，是通过扫描等光学输入方式将各种票据、报刊、书籍、文稿及其它印刷品的文字转化为图像信息，再利用文字识别技术将图像信息转化为可以使用的计算机输入技术。</string>
     <string name="segment_title">人像分割</string>
     <string name="participle_title">分词</string>

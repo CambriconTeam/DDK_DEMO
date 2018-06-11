@@ -42,6 +42,7 @@
         <item>人脸比对</item>
         <item>人脸属性</item>
         <item>人脸朝向识别</item>
+        <item>五官特征检测</item>
     </string-array>
     <string-array name="more_functions_summary">
         <item>加层网络离线模型图片分类，效率高，正确率高</item>
@@ -51,16 +52,17 @@
         <item>人像分割</item>
         <item>分词</item>
         <item>码检测</item>
-        <item>支持100类常见物体、场景、行为的识别，拥有丰富的标签信息</item>
-        <item>通过识别图像内容所属场景，对输入图片进行快速分类</item>
-        <item>从多维度判断图像质量，为图像打分</item>
-        <item>基于深度学习获得比传统图像处理更加清晰、锐利、干净的照片</item>
-        <item>对输入图片中的人脸做解析，给出人脸的各个面部区域解析结果</item>
+        <item>图片标签分类</item>
+        <item>场景检测</item>
+        <item>美学评分</item>
+        <item>图像超分辨率</item>
+        <item>人脸解析</item>
         <item>文档校验能够实现对文档翻拍过程的辅助增强功能</item>
         <item>分词作为自然语言处理领域的基础研究，衍生出各类不同的文本处理应用</item>
         <item>通过识别并提取人脸特征，进行高精度比对，判断对象是否为同一个人。</item>
         <item>对输入图片中的人脸做属性识别，给出人脸的性别属性。</item>
         <item>人脸朝向识别，是基于可见光图像利用图像识别技术检测平面内人脸五种朝向。</item>
+        <item>对输入图像进行人脸五官特征检测，返回代表五官轮廓位置的关键点坐标</item>
 
     </string-array>
     <integer-array name="more_function_img">
@@ -81,6 +83,8 @@
         <item>@mipmap/more1</item>
         <item>@mipmap/more2</item>
         <item>@mipmap/more4</item>
+        <item>@mipmap/more5</item>
+
     </integer-array>
    <integer-array name="more_function_bgcolor">
         <item>@color/colorAccent</item>
@@ -88,6 +92,7 @@
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>

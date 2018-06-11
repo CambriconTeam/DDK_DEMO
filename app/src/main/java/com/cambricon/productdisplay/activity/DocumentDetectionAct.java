@@ -38,7 +38,6 @@ import org.json.JSONObject;
 public class DocumentDetectionAct extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "DocumentDetectionAct";
     public android.support.v7.widget.Toolbar toolbar;
-    private TextView et;
     private ImageView iv;
     private Button btn_gallery;
     private Button btnUpdate;
@@ -98,9 +97,8 @@ public class DocumentDetectionAct extends AppCompatActivity implements View.OnCl
         iv = findViewById(R.id.image);
         btn_gallery.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.document_detection_bg);
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
