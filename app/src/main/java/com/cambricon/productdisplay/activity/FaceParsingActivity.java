@@ -186,7 +186,7 @@ public class FaceParsingActivity extends Activity {
                     break;
                 case MSG_SHOW_RESULT:
                     tvLabel.setText(result);
-                    ivCaptured.setImageBitmap(bmp);
+                   // ivCaptured.setImageBitmap(bmp);
                     dstView.setImageBitmap(newbmp);
                     btnCamera.setEnabled(true);
                     btnCamera.setEnabled(true);
@@ -216,6 +216,7 @@ public class FaceParsingActivity extends Activity {
             }
             Log.d(LOG_TAG, "imgPath = " + imgPath);
             bmp = BitmapFactory.decodeFile(imgPath);
+            ivCaptured.setImageBitmap(bmp);
             btnfp.setEnabled(true);
             Log.d(LOG_TAG, "bitmap = " + imgPath);
         } else {

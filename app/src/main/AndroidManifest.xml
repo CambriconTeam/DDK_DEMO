@@ -78,6 +78,7 @@
         <activity android:name=".activity.WordSplitAct" />
         <activity android:name=".activity.FaceCompareActivity" />
         <activity android:name=".activity.FaceAttributeActivity"></activity>
+        <activity android:name=".activity.HeadPoseActivity"></activity>
     </application>
 
 </manifest>
