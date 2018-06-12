@@ -43,6 +43,7 @@
         <item>人脸属性</item>
         <item>人脸朝向识别</item>
         <item>五官特征检测</item>
+        <item>实体识别</item>
     </string-array>
     <string-array name="more_functions_summary">
         <item>加层网络离线模型图片分类，效率高，正确率高</item>
@@ -63,6 +64,7 @@
         <item>对输入图片中的人脸做属性识别，给出人脸的性别属性。</item>
         <item>人脸朝向识别，是基于可见光图像利用图像识别技术检测平面内人脸五种朝向。</item>
         <item>对输入图像进行人脸五官特征检测，返回代表五官轮廓位置的关键点坐标</item>
+        <item>能够从自然语言中提取出具有特定意义的实体</item>
 
     </string-array>
     <integer-array name="more_function_img">
@@ -84,6 +86,7 @@
         <item>@mipmap/more2</item>
         <item>@mipmap/more4</item>
         <item>@mipmap/more5</item>
+        <item>@mipmap/more5</item>
 
     </integer-array>
    <integer-array name="more_function_bgcolor">
@@ -92,6 +95,7 @@
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>

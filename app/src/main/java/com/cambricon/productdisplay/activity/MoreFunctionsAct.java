@@ -183,6 +183,12 @@ public class MoreFunctionsAct extends AppCompatActivity {
                         intent17.putExtra("BaseToolBarTitle", getString(R.string.face_feature));
                         startActivity(intent17);
                         break;
+                    case 18:
+                        //实体识别
+                        Intent intent18 = new Intent(MoreFunctionsAct.this,EntityDetectActivity.class);
+                        intent18.putExtra("BaseToolBarTitle", getString(R.string.entity_detect));
+                        startActivity(intent18);
+                        break;
                 }
             }
         });

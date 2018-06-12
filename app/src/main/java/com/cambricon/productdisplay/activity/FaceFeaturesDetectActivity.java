@@ -8,10 +8,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -94,6 +96,17 @@ public class FaceFeaturesDetectActivity extends AppCompatActivity implements Vie
     private void setActionbar() {
         toolbar.setTitle(getIntent().getStringExtra("BaseToolBarTitle"));
         setSupportActionBar(toolbar);
+        Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
+        toolDrawable.setAlpha(50);
+        toolbar.setBackground(toolDrawable);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initService() {

@@ -77,9 +77,10 @@
         <activity android:name=".activity.DocumentDetectionAct" />
         <activity android:name=".activity.WordSplitAct" />
         <activity android:name=".activity.FaceCompareActivity" />
-        <activity android:name=".activity.FaceAttributeActivity"></activity>
-        <activity android:name=".activity.HeadPoseActivity"></activity>
-        <activity android:name=".activity.FaceFeaturesDetectActivity"></activity>
+        <activity android:name=".activity.FaceAttributeActivity" />
+        <activity android:name=".activity.HeadPoseActivity" />
+        <activity android:name=".activity.FaceFeaturesDetectActivity" />
+        <activity android:name=".activity.EntityDetectActivity"></activity>
     </application>
 
 </manifest>
