@@ -89,6 +89,7 @@
     <string name="face_attribute">人脸属性</string>
     <string name="face_feature">五官特征检测</string>
     <string name="entity_detect">实体识别</string>
+    <string name="speech_recognition">语音识别</string>
     <string name="offline_dialog_title">操作提示</string>
     <string name="offline_dialog_content">此功能需要在主页侧拉菜单打开IPU模式</string>
     <string name="title_data_detection_ipu">IPU模式\n(ResNet50/Fast-RCNN)</string>
@@ -118,6 +119,7 @@
     <string name="super_resolution_describe">单张图片空域超分辨率（SISR：Signle Image Super-Resolution），即给定单一一张图片，使用智能方法将其放大，令其分辨率更高，得到比传统放大更加清晰的细节纹理。</string>
     <string name="document_detection_describle">文档校验能够实现对文档翻拍过程的辅助增强功能，自动识别图片中的文档，返回文档在原图中的位置信息。这里的文档可泛指外形方正的事物，比如书本、相片、画框等。根据文档在原始图片中的位置信息校正文档的拍摄角度，自动将拍摄视角调整到正对文档的角度上。</string>
     <string name="entity_detect_describle">实体识别覆盖范围大，能够满足日常开发中对实体识别的需求，让应用体验更好。识别准确率高，能够准确的提取到实体信息，对应用基于信息的后续服务形成关键影响。</string>
+    <string name="speech_recognition_describle">与机器进行语音交流，让机器明白你说什么，这是人们长期以来梦寐以求的事情。中国物联网校企联盟形象地把语音识别比作为“机器的听觉系统”。语音识别技术，也被称为自动语音识别（Automatic Speech Recognition, ASR）。就是让机器通过识别和理解过程把语音信号转变为相应的文本或命令的技术。</string>
     <string name="face_attribute_describle">人脸属性是表征人脸特征的一系列生物特性，具有很强的自身稳定性和个体差异性，标识了人的身份。它包括性别、肤色 、年龄、表情等。本接口的主要功能是对输入图片中的人脸做属性识别，给出人脸的性别属性。</string>
     <string name="world_split_describle">随着信息技术的发展，网络信息量暴增，文本信息得到快速增长，信息成几何级增长逐步成为当今社会的主要特征。为了提取文本关键信息，在搜索引擎等领域，使得分词变得尤为重要。通过分词，理解文本所要表达的正确含义。</string>
     <string name="face_compare_describle">通过识别并提取人脸特征，对人像进行高精度比对，给出置信度分数，判断对象是否为同一个人。使用人脸比对技术，可应用于实现对图库照片的智能分类管理等场景中。基于领先的端侧智能图像识别算法，对人脸识别准确度高，让应用更具最佳体验。</string>

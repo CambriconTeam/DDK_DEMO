@@ -80,7 +80,8 @@
         <activity android:name=".activity.FaceAttributeActivity" />
         <activity android:name=".activity.HeadPoseActivity" />
         <activity android:name=".activity.FaceFeaturesDetectActivity" />
-        <activity android:name=".activity.EntityDetectActivity"></activity>
+        <activity android:name=".activity.EntityDetectActivity" />
+        <activity android:name=".activity.SpeechRecognitionActivity"></activity>
     </application>
 
 </manifest>

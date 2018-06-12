@@ -189,6 +189,12 @@ public class MoreFunctionsAct extends AppCompatActivity {
                         intent18.putExtra("BaseToolBarTitle", getString(R.string.entity_detect));
                         startActivity(intent18);
                         break;
+                    case 19:
+                        //实体识别
+                        Intent intent19 = new Intent(MoreFunctionsAct.this,SpeechRecognitionActivity.class);
+                        intent19.putExtra("BaseToolBarTitle", getString(R.string.speech_recognition));
+                        startActivity(intent19);
+                        break;
                 }
             }
         });
