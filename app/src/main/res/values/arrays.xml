@@ -30,7 +30,7 @@
         <item>单层性能比较</item>
         <item>简单背景OCR</item>
         <item>人像分割</item>
-        <item>分词</item>
+        <item>分词及意图识别</item>
         <item>码检测</item>
         <item>图片标签分类</item>
         <item>场景检测</item>
@@ -52,14 +52,14 @@
         <item>加层网络离线模型目标检测，效率高，正确率高</item>
         <item>单层CPU在线，IPU在线，IPU离线模式性能比较</item>
         <item>OCR光学字符识别(Optical Character Recognition)技术</item>
-        <item>人像分割</item>
-        <item>分词</item>
-        <item>码检测</item>
-        <item>图片标签分类</item>
-        <item>场景检测</item>
-        <item>美学评分</item>
-        <item>图像超分辨率</item>
-        <item>人脸解析</item>
+        <item>将图片中的人像和背景进行分离，分成不同的区域，用不同的标签进行区分</item>
+        <item>分词是为了提取文本关键信息，意图识别用于对文本消息进行意图分析和识别</item>
+        <item>通过识别二维码、条码得到码中包含的信息</item>
+        <item>支持100类常见物体、场景、行为的识别，拥有丰富的标签信息</item>
+        <item>通过识别图像内容所属场景，对输入图片进行快速分类</item>
+        <item>从多维度判断图像质量，为图像打分</item>
+        <item>基于深度学习获得比传统图像处理更加清晰，锐利，干净的照片</item>
+        <item>对输入图片中的人脸做解析，给出人脸的各个面部区域解析结果</item>
         <item>文档校验能够实现对文档翻拍过程的辅助增强功能</item>
         <item>分词作为自然语言处理领域的基础研究，衍生出各类不同的文本处理应用</item>
         <item>通过识别并提取人脸特征，进行高精度比对，判断对象是否为同一个人。</item>
