@@ -251,7 +251,6 @@ public class LabelDetectorActivity extends AppCompatActivity implements LabelDet
             bmp = BitmapFactory.decodeFile(imgPath);
             dialog = ProgressDialog.show(LabelDetectorActivity.this,
                     "Predicting...", "Wait for one sec...", true);
-
             LabelDetectTask cnnTask = new LabelDetectTask(LabelDetectorActivity.this);
             cnnTask.execute(bmp);
         } else {

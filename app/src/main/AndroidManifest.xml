@@ -82,6 +82,8 @@
         <activity android:name=".activity.FaceFeaturesDetectActivity" />
         <activity android:name=".activity.EntityDetectActivity" />
         <activity android:name=".activity.SpeechRecognitionActivity"></activity>
+        <activity android:name=".activity.TextSuperResolutionActivity"></activity>
+
     </application>
 
 </manifest>

@@ -221,7 +221,7 @@ public class SceneDetectorActivity extends Activity {
                         Toast.makeText(getApplicationContext(), "disconnect", Toast.LENGTH_SHORT).show();
                         break;
                     case MSG_SHOW_RESULT_SCENE:
-                        ivCaptured.setImageBitmap(bmp);
+                        //ivCaptured.setImageBitmap(bmp);
                         tvLabel.setText(result);
                         btnCamera.setEnabled(true);
                         btnSelect.setEnabled(true);
@@ -249,6 +249,7 @@ public class SceneDetectorActivity extends Activity {
             }
             Log.d(LOG_TAG, "imgPath = " + imgPath);
             bmp = BitmapFactory.decodeFile(imgPath);
+            ivCaptured.setImageBitmap(bmp);
             btnscene.setEnabled(true);
         } else {
             btnCamera.setEnabled(true);

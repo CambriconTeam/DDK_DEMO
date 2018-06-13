@@ -45,6 +45,7 @@
         <item>五官特征检测</item>
         <item>实体识别</item>
         <item>语音识别</item>
+        <item>文字图像识别</item>
     </string-array>
     <string-array name="more_functions_summary">
         <item>加层网络离线模型图片分类，效率高，正确率高</item>
@@ -67,6 +68,7 @@
         <item>对输入图像进行人脸五官特征检测，返回代表五官轮廓位置的关键点坐标</item>
         <item>能够从自然语言中提取出具有特定意义的实体</item>
         <item>让机器通过识别和理解过程把语音信号转变为相应的文本</item>
+        <item>针对文字内容的图像清晰度提升显著，极大提升文字的可辨识性</item>
 
     </string-array>
     <integer-array name="more_function_img">
@@ -90,6 +92,7 @@
         <item>@mipmap/more5</item>
         <item>@mipmap/more5</item>
         <item>@mipmap/more4</item>
+        <item>@mipmap/more4</item>
 
     </integer-array>
    <integer-array name="more_function_bgcolor">
@@ -98,6 +101,7 @@
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
         <item>@color/colorAccent</item>
+       <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
        <item>@color/colorAccent</item>
