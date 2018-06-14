@@ -1,69 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@mipmap/cf_layout_bg"
+    tools:context="com.cambricon.productdisplay.activity.LabelDetectorActivity"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/super_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@mipmap/param_bg">
+
+                <TextView
+                    android:id="@+id/test_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/test_text_color"
+                    android:text="输出："/>
+
+                <TextView
+                    android:id="@+id/SISR_result"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/test_text_color"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true">
+
+
+                <Button
+                    android:id="@+id/btn_srcimage"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/btn_bg"
+                    android:textColor="@color/test_text_color"
+                    android:text="相册"
+                    android:layout_marginRight="5dp"/>
+
+
+
+
+                <Button
+                    android:id="@+id/btn_startSR"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/btn_bg"
+                    android:textColor="@color/test_text_color"
+                    android:layout_marginLeft="5dp"
+                    android:text="开始"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:background="@mipmap/image_bg"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/single_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:background="@color/news_item"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:visibility="gone">
+            </LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/images"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imgViewSrc"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:background="@mipmap/image_bg"
 
-            />
-
-        <ImageView
-            android:id="@+id/imgViewSR"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:background="@mipmap/image_bg"
-           />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/buttons"
+    <ImageView
+        android:id="@+id/imgViewSrc"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/test_text_color"
-            android:text="@string/super_resolution_describe"/>
 
-        <Button
-            android:id="@+id/btn_srcimage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/btn_bg"
-            android:text="相册"
-            android:textColor="@color/test_text_color"/>
+    <ImageView
+        android:id="@+id/imgViewSR"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY" />
 
-        <Button
-            android:id="@+id/btn_startSR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/btn_bg"
-            android:text="开始"
-            android:textColor="@color/test_text_color"/>
+</LinearLayout>
 
-        <TextView
-            android:id="@+id/SISR_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/test_text_color"
-            />
+
+            <ProgressBar
+                android:id="@+id/ipu_progress_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progressbar"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/editText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/text_bg"
+                android:paddingLeft="@dimen/param_padding_left"
+                android:paddingRight="@dimen/param_padding_left"
+                android:paddingTop="@dimen/param_padding_left"
+                android:textColor="@color/test_text_color"
+                android:text="@string/super_resolution_describe"
+                />
+
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

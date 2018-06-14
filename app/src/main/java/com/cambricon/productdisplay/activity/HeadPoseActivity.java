@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.cambricon.productdisplay.R;
 import com.huawei.hiai.vision.common.ConnectionCallback;
@@ -51,6 +53,8 @@ public class HeadPoseActivity extends AppCompatActivity{
     private Button mBtnStartDetect;
     private ImageView mImageView;
     private TextView mTxtViewResult;
+    private Toolbar toolbar;
+    private TextView describe;
 
 
     private String headpose_result[] = {"nobody", "upward", "rightward", "downward", "leftward"};
@@ -66,6 +70,10 @@ public class HeadPoseActivity extends AppCompatActivity{
         mBtnSeletct = (Button) findViewById(R.id.btn_head_pose_select);
         mBtnStartDetect = (Button) findViewById(R.id.btn_identify);
         mTxtViewResult = (TextView) findViewById(R.id.idetify_result);
+        toolbar = (Toolbar) findViewById(R.id.head_pose_toolbar);
+        describe = (TextView) findViewById(R.id.editText);
+
+        setActionBar();
 
         mBtnSeletct.setOnClickListener(new onClickBtn());
         mBtnStartDetect.setOnClickListener(new onClickBtn());
@@ -84,6 +92,25 @@ public class HeadPoseActivity extends AppCompatActivity{
         });
 
         mThread.start();
+    }
+
+    /**
+     * 设置ActionBar
+     */
+    private void setActionBar() {
+        toolbar.setTitle(getString(R.string.head_pose));
+        setSupportActionBar(toolbar);
+        Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
+        toolDrawable.setAlpha(50);
+        toolbar.setBackground(toolDrawable);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -151,23 +178,6 @@ public class HeadPoseActivity extends AppCompatActivity{
             String picturePath = cursor.getString(columnIndex);
            cursor.close();
 
-           // Log.d(TAG, "url : " + picturePath);
-
-            //BitmapFactory.Options options = new BitmapFactory.Options();
-            //options.inJustDecodeBounds = true;
-            //BitmapFactory.decodeFile(picturePath,options);
-            //options.inSampleSize = RegisterTool.calculateInSampleSize(options,640,480);
-            //options.inJustDecodeBounds = false;
-
-//            InputStream is = null;
-//            try {
-//                is = getAssets().open("faceimage/headpose.jpg");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            Bitmap bitmap = BitmapFactory.decodeStream(is);
-//            mBitmap = bitmap;
-
             mBitmap = BitmapFactory.decodeFile(picturePath);
             //mBitmap =
             mBitmap = getResizedBitmap(mBitmap,640,480);
@@ -202,6 +212,7 @@ public class HeadPoseActivity extends AppCompatActivity{
                         return;
                     }
                     mImageView.setImageBitmap(mBitmap);
+                    describe.setVisibility(View.GONE);
                     break;
                 }
 

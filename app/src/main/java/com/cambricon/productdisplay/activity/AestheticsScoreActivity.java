@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.cambricon.productdisplay.R;
 import com.cambricon.productdisplay.task.ASTask;
@@ -43,6 +46,8 @@ public class AestheticsScoreActivity extends AppCompatActivity implements Aesthe
     private Button btnSelect;
     private ImageView ivImage;
     private TextView tvScore;
+    private TextView describe;
+    private Toolbar toolbar;
 
     private static final int REQUEST_IMAGE_TAKE = 100;
     private static final int REQUEST_IMAGE_SELECT = 200;
@@ -56,8 +61,12 @@ public class AestheticsScoreActivity extends AppCompatActivity implements Aesthe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aesthetics_score);
 
+        toolbar = (Toolbar) findViewById(R.id.score_toolbar);
+        describe = (TextView) findViewById(R.id.editText);
         ivImage = (ImageView)findViewById(R.id.image);
         tvScore = (TextView)findViewById(R.id.score);
+
+        setActionBar();
 
         btnTake = (Button) findViewById(R.id.btn_take);
         btnTake.setOnClickListener(new Button.OnClickListener() {
@@ -99,6 +108,26 @@ public class AestheticsScoreActivity extends AppCompatActivity implements Aesthe
         requestPermissions();
 
 }
+
+    /**
+     * 设置ActionBar
+     */
+    private void setActionBar() {
+        toolbar.setTitle(getString(R.string.aesthetics_score));
+        setSupportActionBar(toolbar);
+        Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
+        toolDrawable.setAlpha(50);
+        toolbar.setBackground(toolDrawable);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if ((requestCode == REQUEST_IMAGE_TAKE || requestCode == REQUEST_IMAGE_SELECT) && resultCode == RESULT_OK) {
@@ -134,6 +163,7 @@ public class AestheticsScoreActivity extends AppCompatActivity implements Aesthe
     @Override
     public void onTaskCompleted(Float result) {
         ivImage.setImageBitmap(bmp);
+        describe.setVisibility(View.GONE);
         tvScore.setText(String.valueOf(result));
         btnTake.setEnabled(true);
         btnSelect.setEnabled(true);

@@ -133,36 +133,6 @@ public class TextSuperResolutionActivity extends Activity{
                 ivCaptured.setImageBitmap(bmp);
                 mMyHandler.sendEmptyMessage(MSG_TSR);
                 Log.e("xiaoxiao","bmp"+bmp);
-//                Frame frame = new Frame();
-//                frame.setBitmap(bmp);
-//                TxtImageSuperResolution tsr = new TxtImageSuperResolution(getApplicationContext());
-//                ImageResult srt = tsr.doSuperResolution(frame, null);
-//                Bitmap newbmp = srt.getBitmap();
-//                dstView.setImageBitmap(newbmp);
-//                InputStream apath = getClass().getResourceAsStream("/assets/hiai/Text/img.jpeg");
-//                try {
-//                    String path = new String(InputStreamToByte(apath));
-//
-//                    Bitmap bmp = BitmapFactory.decodeFile(path);
-//
-//                    ivCaptured.setImageBitmap(bmp);
-//                } catch (IOException e) {
-//
-//                    e.printStackTrace();
-//                }
-//
-//               // ivCaptured.setImageBitmap(bmp);
-//                mMyHandler.sendEmptyMessage(MSG_TSR);
-
-//                Bitmap bmp = null;
-//                try {
-//                    bmp = getImageFromAssetsFile("hiai/Text/img.jpeg",getApplicationContext());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                ivCaptured.setImageBitmap(bmp);
-//                mMyHandler.sendEmptyMessage(MSG_TSR);
              }
         });
 
@@ -184,32 +154,6 @@ public class TextSuperResolutionActivity extends Activity{
 
     int resultcode;
 
-//    private byte[] InputStreamToByte(InputStream is) throws IOException {
-//        ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
-//        int ch;
-//        while ((ch = is.read()) != -1) {
-//            bytestream.write(ch);
-//        }
-//        byte imgdata[] = bytestream.toByteArray();
-//        bytestream.close();
-//        return imgdata;
-//
-//    }
-//    public static Bitmap getImageFromAssetsFile(String fileName, Context context) throws IOException {
-//        Bitmap bmp = null;
-//        AssetManager am = context.getResources().getAssets();
-//        try {
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//            InputStream is = am.open(fileName.substring(7));
-//            bmp = BitmapFactory.decodeStream(is,null,options);
-//            is.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return bmp;
-//    }
 
     private class MyHandlerThread extends HandlerThread implements Handler.Callback {
         public MyHandlerThread() {

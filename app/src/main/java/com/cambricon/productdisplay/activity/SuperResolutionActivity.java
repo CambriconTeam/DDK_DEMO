@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -52,6 +55,8 @@ public class SuperResolutionActivity extends AppCompatActivity {
     private ImageView mImageViewSR;
 
     private TextView mTxtViewResult;
+    private TextView describe;
+    private Toolbar toolbar;
 
     private Context mContext;
     private boolean isRunning = false;
@@ -63,7 +68,8 @@ public class SuperResolutionActivity extends AppCompatActivity {
 
         mContext = getApplicationContext();
         setContentView(R.layout.activity_super_resolution);
-
+        toolbar = (Toolbar)findViewById(R.id.super_toolbar);
+        describe = (TextView) findViewById(R.id.editText);
         mImageViewSrc = (ImageView) findViewById(R.id.imgViewSrc);
         mImageViewSR = (ImageView) findViewById(R.id.imgViewSR);
         mBtnSrcImg = (Button) findViewById(R.id.btn_srcimage);
@@ -71,7 +77,7 @@ public class SuperResolutionActivity extends AppCompatActivity {
         mTxtViewResult = (TextView) findViewById(R.id.SISR_result);
         mBtnSrcImg.setOnClickListener(new onClickBtn());
         mBtnStartSR.setOnClickListener(new onClickBtn());
-
+        setActionBar();
        // VisionBase.init(getApplicationContext(), ConnectManager.getInstance().getmConnectionCallback());
 
     }
@@ -100,6 +106,26 @@ public class SuperResolutionActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * 设置ActionBar
+     */
+    private void setActionBar() {
+        toolbar.setTitle(getString(R.string.super_resolution));
+        setSupportActionBar(toolbar);
+        Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
+        toolDrawable.setAlpha(50);
+        toolbar.setBackground(toolDrawable);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -140,6 +166,7 @@ public class SuperResolutionActivity extends AppCompatActivity {
                     }
 
                     mImageViewSrc.setImageBitmap(mBitmap);
+                    describe.setVisibility(View.GONE);
                     mTxtViewResult.setText("Ready to run SISR!");
 
                     break;

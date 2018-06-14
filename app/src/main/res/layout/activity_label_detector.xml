@@ -1,93 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@mipmap/cf_layout_bg"
-    tools:context="com.cambricon.productdisplay.activity.LabelDetectorActivity">
+    tools:context="com.cambricon.productdisplay.activity.LabelDetectorActivity"
+   >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/label_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <LinearLayout
-        android:id="@+id/display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginLeft="40dp">
+        android:padding="10dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/textocr_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-        <TextView
-            android:id="@+id/editText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/text_padding"
-            android:paddingRight="@dimen/text_padding"
-            android:textColor="@color/test_text_color"
-            android:text="@string/label_detector_describle"/>
+            android:orientation="vertical"
+            android:background="@mipmap/param_bg">
+
+            <TextView
+                android:id="@+id/test_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/test_text_color"
+                android:layout_gravity="center_horizontal"
+                android:text="检测结果"/>
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="2dp"
+                android:textColor="@color/test_text_color"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+
+                <Button
+                    android:id="@+id/btn_take"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/btn_bg"
+                    android:textColor="@color/test_text_color"
+                    android:text="拍照"
+                    android:layout_marginRight="5dp"/>
+
+
+
+
+                <Button
+                    android:id="@+id/btn_select"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/btn_bg"
+                    android:textColor="@color/test_text_color"
+                    android:layout_marginLeft="5dp"
+                    android:text="相册"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:background="@mipmap/image_bg"
+            android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/single_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:background="@color/news_item"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:visibility="gone">
+    </LinearLayout>
+
+
+
 
         <ImageView
             android:id="@+id/image"
-            android:layout_marginTop="10dp"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:background="@mipmap/image_bg"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/label"
+        <ProgressBar
+            android:id="@+id/ipu_progress_single"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/test_text_color"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/progressbar"
+            android:visibility="gone"/>
 
 
+            <TextView
+                android:id="@+id/editText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/text_bg"
+                android:paddingLeft="@dimen/param_padding_left"
+                android:paddingRight="@dimen/param_padding_left"
+                android:paddingTop="@dimen/param_padding_left"
+                android:textColor="@color/test_text_color"
+                android:text="@string/label_detector_describle"
+                />
 
+        </RelativeLayout>
     </LinearLayout>
 
-
-    <LinearLayout
-        android:id="@+id/control"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="30dp">
-
-        <Button
-            android:id="@+id/btn_take"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:background="@mipmap/btn_bg"
-            android:layout_weight="1"
-            android:textColor="@color/test_text_color"
-            android:text="拍照"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"/>
-
-        <Button
-            android:id="@+id/btn_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="30dp"
-            android:background="@mipmap/btn_bg"
-            android:textColor="@color/test_text_color"
-            android:text="相册"/>
-
-    </LinearLayout>
-
-
-
-</RelativeLayout>
+</LinearLayout>

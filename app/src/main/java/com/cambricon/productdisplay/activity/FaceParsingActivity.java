@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,13 +23,16 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.cambricon.productdisplay.R;
 import com.huawei.hiai.vision.common.ConnectionCallback;
@@ -42,7 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class FaceParsingActivity extends Activity {
+public class FaceParsingActivity extends AppCompatActivity {
     private static final String LOG_TAG = "faceparsing";
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     private static final int REQUEST_IMAGE_SELECT = 200;
@@ -62,6 +66,9 @@ public class FaceParsingActivity extends Activity {
     private Button btnfp;
     private Bitmap newbmp;
     private ImageView dstView;
+    private Toolbar toolbar;
+    private TextView describe;
+
     String result;
     FaceParsing faceParsing;
 
@@ -80,6 +87,8 @@ public class FaceParsingActivity extends Activity {
         mMyHandler = new Handler(mMyHandlerThread.getLooper(), mMyHandlerThread);
         ivCaptured = (ImageView) findViewById(R.id.iv_face_parsing);
         tvLabel = (TextView) findViewById(R.id.tv_face_parsing);
+        toolbar = (Toolbar) findViewById(R.id.face_parsing_toolbar);
+        describe = (TextView) findViewById(R.id.editText);
         dstView = (ImageView) findViewById(R.id.iv_face_parsing_dst);
         btnCamera = (Button) findViewById(R.id.btn_camera);
         btnCamera.setOnClickListener(new Button.OnClickListener() {
@@ -124,7 +133,26 @@ public class FaceParsingActivity extends Activity {
         });
 
         requestPermissions();
+        setActionBar();
+    }
 
+    /**
+     * 设置ActionBar
+     */
+    private void setActionBar() {
+        toolbar.setTitle(getString(R.string.face_parsing));
+        setSupportActionBar(toolbar);
+        Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
+        toolDrawable.setAlpha(50);
+        toolbar.setBackground(toolDrawable);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private class MyHandlerThread extends HandlerThread implements Handler.Callback {
@@ -217,6 +245,7 @@ public class FaceParsingActivity extends Activity {
             Log.d(LOG_TAG, "imgPath = " + imgPath);
             bmp = BitmapFactory.decodeFile(imgPath);
             ivCaptured.setImageBitmap(bmp);
+            describe.setVisibility(View.GONE);
             btnfp.setEnabled(true);
             Log.d(LOG_TAG, "bitmap = " + imgPath);
         } else {

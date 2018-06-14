@@ -1,97 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/cf_layout_bg"
+    android:orientation="vertical"
     >
-
-    <LinearLayout
-        android:id="@+id/display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="40dp">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/textocr_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-        <TextView
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/text_padding"
-            android:paddingRight="@dimen/text_padding"
-            android:textColor="@color/test_text_color"
-            android:text="@string/aesthetics_score_describle"/>
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_marginTop="10dp"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:background="@mipmap/image_bg"
-            />
-
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/test_text_color"
-            android:text="评分为："
-            android:visibility="visible"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/control"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/score_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp">
+        android:layout_height="30dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-        <Button
-            android:id="@+id/btn_take"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/btn_bg"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="30dp"
-            android:textColor="@color/test_text_color"
-            android:text="拍照"/>
+            android:orientation="vertical"
+            android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@mipmap/param_bg">
+
+                <TextView
+                    android:id="@+id/test_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/test_text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:text="评分结果"/>
+
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/test_text_color"
+                    />
+
+            </LinearLayout>
 
 
-        <Button
-            android:id="@+id/btn_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/btn_bg"
-            android:layout_weight="1"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/test_text_color"
-            android:text="相册"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true">
 
+
+                <Button
+                    android:id="@+id/btn_take"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/btn_bg"
+                    android:layout_weight="1"
+                    android:layout_marginRight="2.5dp"
+                    android:textColor="@color/test_text_color"
+                    android:text="拍照"/>
+
+
+                <Button
+                    android:id="@+id/btn_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/btn_bg"
+                    android:layout_marginLeft="2.5dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/test_text_color"
+                    android:text="相册"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:background="@mipmap/image_bg"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/single_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:background="@color/news_item"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:visibility="gone">
+            </LinearLayout>
+
+
+
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:scaleType="fitXY" />
+
+            <ProgressBar
+                android:id="@+id/ipu_progress_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progressbar"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/editText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/text_bg"
+                android:paddingLeft="@dimen/param_padding_left"
+                android:paddingRight="@dimen/param_padding_left"
+                android:paddingTop="@dimen/param_padding_left"
+                android:textColor="@color/test_text_color"
+                android:text="@string/aesthetics_score_describle"
+                />
+
+        </RelativeLayout>
     </LinearLayout>
-
-
-
-</RelativeLayout>
+</LinearLayout>

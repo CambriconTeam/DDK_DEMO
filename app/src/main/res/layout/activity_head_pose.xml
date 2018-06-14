@@ -6,91 +6,156 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@mipmap/cf_layout_bg"
-    tools:context="com.cambricon.productdisplay.activity.LabelDetectorActivity">
+    android:padding="10dp"
+    tools:context="com.cambricon.productdisplay.activity.LabelDetectorActivity"
+    >
 
-    <LinearLayout
-        android:id="@+id/display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="40dp">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/textocr_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-        <TextView
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/text_padding"
-            android:paddingRight="@dimen/text_padding"
-            android:textColor="@color/test_text_color"
-            android:text="@string/head_pose_describe"
-            />
-
-        <ImageView
-            android:id="@+id/iv_head_pose"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="10dp"
-            android:background="@mipmap/image_bg"
-            android:layout_gravity="center_horizontal"
-            />
-
-        <TextView
-            android:id="@+id/idetify_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/test_text_color"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/control"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/head_pose_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+        android:layout_height="30dp"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-        <Button
-            android:id="@+id/btn_head_pose_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@mipmap/btn_bg"
-            android:text="相册"
-            android:textColor="@color/test_text_color" />
+            android:background="@mipmap/image_bg"
+            android:padding="20dp"
+            android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="10" />
+            <LinearLayout
+                android:id="@+id/single_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:background="@color/news_item"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:visibility="gone">
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_identify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+
+
+
+            <ImageView
+                android:id="@+id/iv_head_pose"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:scaleType="fitXY" />
+
+            <ProgressBar
+                android:id="@+id/ipu_progress_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progressbar"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/editText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/text_bg"
+                android:paddingLeft="@dimen/param_padding_left"
+                android:paddingRight="@dimen/param_padding_left"
+                android:paddingTop="@dimen/param_padding_left"
+                android:textColor="@color/test_text_color"
+                android:text="@string/head_pose_describe"
+                />
+
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@mipmap/btn_bg"
-            android:text="识别"
-            android:textColor="@color/test_text_color" />
+            android:orientation="vertical"
+            android:padding="10dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@mipmap/param_bg">
+
+                <TextView
+                    android:id="@+id/test_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/test_text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:text="识别结果"/>
+
+                <TextView
+                    android:id="@+id/idetify_result"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/test_text_color"
+                    />
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <Button
+                        android:id="@+id/btn_head_pose_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/btn_bg"
+                        android:text="相册"
+                        android:textColor="@color/test_text_color" />
+
+
+
+                    <Button
+                        android:id="@+id/btn_identify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/btn_bg"
+                        android:text="识别"
+                        android:textColor="@color/test_text_color" />
+
+
+                </LinearLayout>
+
+
+
+        </LinearLayout>
     </LinearLayout>
-
-
 
 </LinearLayout>

@@ -7,14 +7,17 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +47,8 @@ public class LabelDetectorActivity extends AppCompatActivity implements LabelDet
     private Button btnSelect;
     private ImageView ivImage;
     private TextView tvLabel;
+    private TextView describe;
+    private Toolbar toolbar;
 
     private static final int REQUEST_IMAGE_TAKE = 100;
     private static final int REQUEST_IMAGE_SELECT = 200;
@@ -184,10 +189,34 @@ public class LabelDetectorActivity extends AppCompatActivity implements LabelDet
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_label_detector);
+        initView();
+        setActionBar();
+        //To connect HiAi Engine service using VisionBase
+        VisionBase.init(getApplicationContext(),new ConnectionCallback(){
+            @Override
+            public void onServiceConnect() {
+                //This callback method is called when the connection to the service is successful.
+                //Here you can initialize the detector class, mark the service connection status, and more.
 
+                Log.i(LOG_TAG, "onServiceConnect ");
+            }
+
+            @Override
+            public void onServiceDisconnect() {
+                //This callback method is called when disconnected from the service.
+                //You can choose to reconnect here or to handle exceptions.
+                Log.i(LOG_TAG, "onServiceDisconnect");
+            }
+        });
+
+        requestPermissions();
+    }
+
+    private void initView() {
         ivImage = (ImageView) findViewById(R.id.image);
         tvLabel = (TextView) findViewById(R.id.label);
-
+        describe = (TextView) findViewById(R.id.editText);
+        toolbar = (Toolbar) findViewById(R.id.label_toolbar);
         btnTake = (Button) findViewById(R.id.btn_take);
         btnTake.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -209,25 +238,26 @@ public class LabelDetectorActivity extends AppCompatActivity implements LabelDet
                 startActivityForResult(i, REQUEST_IMAGE_SELECT);
             }
         });
-        //To connect HiAi Engine service using VisionBase
-        VisionBase.init(getApplicationContext(),new ConnectionCallback(){
-            @Override
-            public void onServiceConnect() {
-                //This callback method is called when the connection to the service is successful.
-                //Here you can initialize the detector class, mark the service connection status, and more.
 
-                Log.i(LOG_TAG, "onServiceConnect ");
-            }
+    }
 
+    /**
+     * 设置ActionBar
+     */
+    private void setActionBar() {
+        toolbar.setTitle(getString(R.string.label_detector));
+        setSupportActionBar(toolbar);
+        Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
+        toolDrawable.setAlpha(50);
+        toolbar.setBackground(toolDrawable);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onServiceDisconnect() {
-                //This callback method is called when disconnected from the service.
-                //You can choose to reconnect here or to handle exceptions.
-                Log.i(LOG_TAG, "onServiceDisconnect");
+            public void onClick(View v) {
+                finish();
             }
         });
-
-        requestPermissions();
     }
 
     @Override
@@ -264,7 +294,7 @@ public class LabelDetectorActivity extends AppCompatActivity implements LabelDet
     @Override
     public void onTaskCompleted(Label label) {
         ivImage.setImageBitmap(bmp);
-
+        describe.setVisibility(View.GONE);
         if (label == null) {
             tvLabel.setText("not get label");
         } else {

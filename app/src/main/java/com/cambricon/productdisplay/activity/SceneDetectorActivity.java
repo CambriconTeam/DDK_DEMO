@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +19,10 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +47,7 @@ import java.util.Date;
  * Created by xiaoxiao on 18-6-5.
  */
 
-public class SceneDetectorActivity extends Activity {
+public class SceneDetectorActivity extends AppCompatActivity{
     private static final String LOG_TAG = "Scene_demo";
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     private static final int REQUEST_IMAGE_SELECT = 200;
@@ -61,6 +66,8 @@ public class SceneDetectorActivity extends Activity {
     private Handler mMyHandler = null;
     private MyHandlerThread mMyHandlerThread = null;
     private Button btnscene;
+    private Toolbar toolbar;
+    private TextView describe;
 
     private static final String UNKNOWN = "Unknown";
     private static final String UNSUPPORT = "UnSupport";
@@ -107,9 +114,30 @@ public class SceneDetectorActivity extends Activity {
         mMyHandlerThread = new MyHandlerThread();
         mMyHandlerThread.start();
         mMyHandler = new Handler(mMyHandlerThread.getLooper(), mMyHandlerThread);
+        initView();
+        setActionBar();
+        btnscene.setEnabled(false);
+
+        VisionBase.init(this, new ConnectionCallback() {
+            @Override
+            public void onServiceConnect() {
+                mHandler.sendEmptyMessage(MSG_SERIVCE_CONNECTED);
+            }
+
+            @Override
+            public void onServiceDisconnect() {
+                mHandler.sendEmptyMessage(MSG_SERIVCE_DISCONNECTED);
+            }
+        });
+
+        requestPermissions();
+    }
+
+    private void initView() {
+        describe = (TextView) findViewById(R.id.editText);
         ivCaptured = (ImageView) findViewById(R.id.ivCaptured);
         tvLabel = (TextView) findViewById(R.id.tvLabel);
-
+        toolbar = (Toolbar) findViewById(R.id.scene_toolbar);
         btnCamera = (Button) findViewById(R.id.btn_take);
         btnCamera.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -138,33 +166,28 @@ public class SceneDetectorActivity extends Activity {
             }
         });
 
-        btnscene.setEnabled(false);
 
-        VisionBase.init(getApplicationContext(), new ConnectionCallback() {
-            @Override
-            public void onServiceConnect() {
-
-            }
-
-            @Override
-            public void onServiceDisconnect() {
-
-            }
-        });
-        VisionBase.init(this, new ConnectionCallback() {
-            @Override
-            public void onServiceConnect() {
-                mHandler.sendEmptyMessage(MSG_SERIVCE_CONNECTED);
-            }
-
-            @Override
-            public void onServiceDisconnect() {
-                mHandler.sendEmptyMessage(MSG_SERIVCE_DISCONNECTED);
-            }
-        });
-
-        requestPermissions();
     }
+
+    /**
+     * 设置ActionBar
+     */
+    private void setActionBar() {
+        toolbar.setTitle(getString(R.string.scene_detector));
+        setSupportActionBar(toolbar);
+        Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
+        toolDrawable.setAlpha(50);
+        toolbar.setBackground(toolDrawable);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
 
     private class MyHandlerThread extends HandlerThread implements Handler.Callback {
         public MyHandlerThread() {
@@ -250,6 +273,7 @@ public class SceneDetectorActivity extends Activity {
             Log.d(LOG_TAG, "imgPath = " + imgPath);
             bmp = BitmapFactory.decodeFile(imgPath);
             ivCaptured.setImageBitmap(bmp);
+            describe.setVisibility(View.GONE);
             btnscene.setEnabled(true);
         } else {
             btnCamera.setEnabled(true);
