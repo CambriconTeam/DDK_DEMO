@@ -2,8 +2,10 @@ package com.cambricon.productdisplay.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +20,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +35,7 @@ import com.huawei.hiai.vision.image.sr.TxtImageSuperResolution;
 import com.huawei.hiai.vision.visionkit.common.Frame;
 import com.huawei.hiai.vision.visionkit.image.ImageResult;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -116,16 +120,50 @@ public class TextSuperResolutionActivity extends Activity{
         btnExample.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputStream is = null;
-                try {
+               InputStream is = null;
+              try {
                     is = getAssets().open("hiai/Text/img.jpeg");
+
                 } catch (IOException e) {
-                    e.printStackTrace();
+                   e.printStackTrace();
                 }
-                Bitmap bmp = BitmapFactory.decodeStream(is);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                bmp = BitmapFactory.decodeStream(is,null,options);
                 ivCaptured.setImageBitmap(bmp);
                 mMyHandler.sendEmptyMessage(MSG_TSR);
-            }
+                Log.e("xiaoxiao","bmp"+bmp);
+//                Frame frame = new Frame();
+//                frame.setBitmap(bmp);
+//                TxtImageSuperResolution tsr = new TxtImageSuperResolution(getApplicationContext());
+//                ImageResult srt = tsr.doSuperResolution(frame, null);
+//                Bitmap newbmp = srt.getBitmap();
+//                dstView.setImageBitmap(newbmp);
+//                InputStream apath = getClass().getResourceAsStream("/assets/hiai/Text/img.jpeg");
+//                try {
+//                    String path = new String(InputStreamToByte(apath));
+//
+//                    Bitmap bmp = BitmapFactory.decodeFile(path);
+//
+//                    ivCaptured.setImageBitmap(bmp);
+//                } catch (IOException e) {
+//
+//                    e.printStackTrace();
+//                }
+//
+//               // ivCaptured.setImageBitmap(bmp);
+//                mMyHandler.sendEmptyMessage(MSG_TSR);
+
+//                Bitmap bmp = null;
+//                try {
+//                    bmp = getImageFromAssetsFile("hiai/Text/img.jpeg",getApplicationContext());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                ivCaptured.setImageBitmap(bmp);
+//                mMyHandler.sendEmptyMessage(MSG_TSR);
+             }
         });
 
         VisionBase.init(this, new ConnectionCallback() {
@@ -146,6 +184,33 @@ public class TextSuperResolutionActivity extends Activity{
 
     int resultcode;
 
+//    private byte[] InputStreamToByte(InputStream is) throws IOException {
+//        ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
+//        int ch;
+//        while ((ch = is.read()) != -1) {
+//            bytestream.write(ch);
+//        }
+//        byte imgdata[] = bytestream.toByteArray();
+//        bytestream.close();
+//        return imgdata;
+//
+//    }
+//    public static Bitmap getImageFromAssetsFile(String fileName, Context context) throws IOException {
+//        Bitmap bmp = null;
+//        AssetManager am = context.getResources().getAssets();
+//        try {
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+//            InputStream is = am.open(fileName.substring(7));
+//            bmp = BitmapFactory.decodeStream(is,null,options);
+//            is.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return bmp;
+//    }
+
     private class MyHandlerThread extends HandlerThread implements Handler.Callback {
         public MyHandlerThread() {
             super("MyHandler");
@@ -162,6 +227,7 @@ public class TextSuperResolutionActivity extends Activity{
         public boolean handleMessage(Message msg) {
             Frame frame = new Frame();
             frame.setBitmap(bmp);
+            Log.e("xiaoxiao","bmp"+bmp);
             switch(msg.what){
                 case MSG_TSR://scene detect
 
