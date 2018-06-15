@@ -59,7 +59,10 @@ public class DocumentDetectionAct extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.document_detection_layout);
         initView();
         setActionBar();
+        initService();
+    }
         /*get connection to service*/
+    private void initService() {
         VisionBase.init(getApplicationContext(), new ConnectionCallback() {
             @Override
             public void onServiceConnect() {
@@ -71,8 +74,8 @@ public class DocumentDetectionAct extends AppCompatActivity implements View.OnCl
                 Log.i(TAG, "HwVisionManager onServiceDisconnect OK.");
             }
         });
-
     }
+
     private void setActionBar() {
         Log.d("tag", getIntent().getStringExtra("BaseToolBarTitle"));
         toolbar.setTitle(getIntent().getStringExtra("BaseToolBarTitle"));
@@ -146,11 +149,11 @@ public class DocumentDetectionAct extends AppCompatActivity implements View.OnCl
                     @Override
                     public void run() {
                         super.run();
-                        // 构造校验器
+//                      构造校验器
                         DocRefine docResolution = new DocRefine (DocumentDetectionAct.this);
                         Frame frame = new Frame();
                         frame.setBitmap(bitmap);
-        //              进行文档检测
+//                      进行文档检测
                         JSONObject jsonDoc = docResolution.docDetect(frame, null);
                         DocCoordinates sc = docResolution.convertResult(jsonDoc);
                         ImageResult imageResult = docResolution.docRefine(frame, sc, null);

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/cf_layout_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.cambricon.productdisplay.activity.EntityDetectActivity"
-    >
+    tools:context="com.cambricon.productdisplay.activity.EntityDetectActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/entity_detect_toolbar"
         android:layout_width="match_parent"
@@ -17,9 +17,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="2">
-        <!--configuration button-->
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/et_input"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@mipmap/image_bg"
+                android:paddingLeft="@dimen/text_padding"
+                android:paddingRight="@dimen/text_padding"
+                android:textColor="@color/test_text_color"
+                android:textSize="15dp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -32,42 +49,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/btn_bg"
-                android:textColor="@color/test_text_color"
-                android:text="sample"/>
+                android:text="例子"
+                android:textColor="@color/test_text_color" />
+
             <Button
                 android:id="@+id/btn_detect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/btn_bg"
-                android:textColor="@color/test_text_color"
-                android:text="detect"/>
-        </LinearLayout>
-        <!--ImageView-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="4"
-            >
-            <EditText
-                android:background="@mipmap/image_bg"
-                android:id="@+id/et_input"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:textSize="15dp"
-                android:paddingLeft="@dimen/text_padding"
-                android:paddingRight="@dimen/text_padding"
+                android:text="检测"
                 android:textColor="@color/test_text_color" />
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
+        android:background="@mipmap/image_bg"
         android:gravity="center"
-        android:background="@mipmap/image_bg">
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="wrap_content"
@@ -75,8 +78,8 @@
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/text_padding"
             android:paddingRight="@dimen/text_padding"
-            android:textColor="@color/test_text_color"
-            android:text="@string/entity_detect_describle"/>
+            android:text="@string/entity_detect_describle"
+            android:textColor="@color/test_text_color" />
     </LinearLayout>
 
 </LinearLayout>

@@ -65,7 +65,11 @@ public class FaceCompareActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_face_compare);
         initView();
         setActionBar();
+        initService();
 
+    }
+
+    private void initService() {
         VisionBase.init(FaceCompareActivity.this, new ConnectionCallback() {
             @Override
             public void onServiceConnect() {
@@ -77,7 +81,6 @@ public class FaceCompareActivity extends AppCompatActivity implements View.OnCli
                 Log.i(LOG_TAG, "onServiceDisconnect");
             }
         });
-
     }
 
 

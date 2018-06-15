@@ -33,7 +33,6 @@ public class FaceAttributeActivity extends AppCompatActivity implements View.OnC
     private static final String LOG_TAG = "FaceAttributeActivity";
     private static String TAG = "DocumentDetectionAct";
     public android.support.v7.widget.Toolbar toolbar;
-    private TextView et;
     private ImageView iv;
     private Button btn_get;
     private Button btn_judge;
@@ -42,12 +41,12 @@ public class FaceAttributeActivity extends AppCompatActivity implements View.OnC
     private String path;
     private TextView tv_result;
 
-    Handler handler=new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             FaceAttributesInfo info = (FaceAttributesInfo) msg.obj;
-            tv_result.setText("图片识别性别为："+info.getSex());
+            tv_result.setText("图片识别性别为：" + info.getSex());
         }
     };
 
@@ -58,19 +57,24 @@ public class FaceAttributeActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_face_attribute);
         initView();
         setActionBar();
-        /*应用VisionBase静态类进行初始化，异步拿到服务的连接。*/
+        initService();
+    }
+
+    private void initService() {
+    /*应用VisionBase静态类进行初始化，异步拿到服务的连接。*/
         VisionBase.init(FaceAttributeActivity.this, new ConnectionCallback() {
             @Override
             public void onServiceConnect() {
                 Log.i(LOG_TAG, "onServiceConnect ");
             }
+
             @Override
             public void onServiceDisconnect() {
                 Log.i(LOG_TAG, "onServiceDisconnect");
             }
         });
-
     }
+
     private void setActionBar() {
         Log.d("tag", getIntent().getStringExtra("BaseToolBarTitle"));
         toolbar.setTitle(getIntent().getStringExtra("BaseToolBarTitle"));
@@ -88,8 +92,8 @@ public class FaceAttributeActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    public void initView(){
-        toolbar=findViewById(R.id.face_attribute_toolbar);
+    public void initView() {
+        toolbar = findViewById(R.id.face_attribute_toolbar);
         btn_get = findViewById(R.id.btn_get);
         btn_judge = findViewById(R.id.btn_judge);
         tv_result = findViewById(R.id.result);
@@ -97,7 +101,6 @@ public class FaceAttributeActivity extends AppCompatActivity implements View.OnC
         btn_get.setOnClickListener(this);
         btn_judge.setOnClickListener(this);
     }
-
 
 
     @Override
@@ -118,8 +121,8 @@ public class FaceAttributeActivity extends AppCompatActivity implements View.OnC
                 //获取照片路径
                 path = cursor.getString(columnIndex);
                 cursor.close();
-                bitmap= BitmapFactory.decodeFile(path);
-                if (bitmap!=null)
+                bitmap = BitmapFactory.decodeFile(path);
+                if (bitmap != null)
                     iv.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -142,7 +145,7 @@ public class FaceAttributeActivity extends AppCompatActivity implements View.OnC
                 startActivityForResult(intent, requestCode);
                 break;
             case R.id.btn_judge:
-                new Thread(){
+                new Thread() {
                     @Override
                     public void run() {
                         super.run();
@@ -159,11 +162,5 @@ public class FaceAttributeActivity extends AppCompatActivity implements View.OnC
             default:
                 break;
         }
-
     }
-
-
-
-
-
 }

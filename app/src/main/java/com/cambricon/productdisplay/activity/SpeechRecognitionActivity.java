@@ -20,7 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SpeechRecognitionActivity extends AppCompatActivity implements View.OnClickListener{
+public class SpeechRecognitionActivity extends AppCompatActivity implements View.OnClickListener {
     private AsrRecognizer mAsrRecognizer;
     private MyAsrListener mMyAsrListener = new MyAsrListener();
 
@@ -42,13 +42,11 @@ public class SpeechRecognitionActivity extends AppCompatActivity implements View
 
     private void initService() {
         mAsrRecognizer = AsrRecognizer.createAsrRecognizer(this);
-//        调用init和destroy
         initEngine(AsrConstants.ASR_SRC_TYPE_RECORD);
-//        mAsrRecognizer.destroy();
     }
 
 
-    private void setActionbar(){
+    private void setActionbar() {
         toolbar.setTitle(getIntent().getStringExtra("BaseToolBarTitle"));
         setSupportActionBar(toolbar);
         Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
@@ -65,7 +63,7 @@ public class SpeechRecognitionActivity extends AppCompatActivity implements View
     }
 
 
-    private void initView(){
+    private void initView() {
 
         toolbar = findViewById(R.id.speech_recognition_toolbar);
         btn_start = findViewById(R.id.btn_start);
@@ -89,7 +87,8 @@ public class SpeechRecognitionActivity extends AppCompatActivity implements View
                 break;
         }
     }
-    private void start(){
+
+    private void start() {
         Intent intent = new Intent();
         intent.putExtra(AsrConstants.ASR_VAD_FRONT_WAIT_MS, 4000);
         intent.putExtra(AsrConstants.ASR_VAD_END_WAIT_MS, 5000);
@@ -105,6 +104,7 @@ public class SpeechRecognitionActivity extends AppCompatActivity implements View
             mAsrRecognizer.stopListening();
         }
     }
+
     private void initEngine(int srcType) {
         Log.d(TAG, "initEngine() ");
         mAsrRecognizer = AsrRecognizer.createAsrRecognizer(this);

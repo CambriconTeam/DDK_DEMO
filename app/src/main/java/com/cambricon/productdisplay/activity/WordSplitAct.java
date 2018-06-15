@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class WordSplitAct extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int IMAGE_REQUEST_CODE = 1;
     private Toolbar toolbar;
     private Button btn_analyze;
     private EditText et_source;
@@ -35,7 +34,11 @@ public class WordSplitAct extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_word_split);
         initView();
         setActionBar();
+        initService();
 
+    }
+
+    private void initService() {
         NLUAPIService.getInstance().init(this, new OnResultListener<Integer>() {
 
             @Override
@@ -43,7 +46,6 @@ public class WordSplitAct extends AppCompatActivity implements View.OnClickListe
                 // 初始化成功回调，在服务出初始化成功调用该函数
             }
         }, true);
-
     }
 
     private void setActionBar() {
@@ -53,7 +55,6 @@ public class WordSplitAct extends AppCompatActivity implements View.OnClickListe
         Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
         toolDrawable.setAlpha(50);
         toolbar.setBackground(toolDrawable);
-        /*显示Home图标*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +95,7 @@ public class WordSplitAct extends AppCompatActivity implements View.OnClickListe
                         curr = word.substring(word.length() - 1, word.length());
                         if (i < data.pos.size() - 1)
                             next = data.pos.get(i + 1).word.substring(0, 1);
+//                        识别结果中的标点并拼接最终结果
                         if (!curr.equals(",") && !curr.equals("，") && !curr.equals("。") && !next.equals(",") && !next.equals("，") && !next.equals("。"))
                             buffer.append("/");
                     }
@@ -104,7 +106,7 @@ public class WordSplitAct extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //Gson 实体类
+    //Gson 实体类,用于接收返回结果
     class Data {
         public int code;
         public String message;
@@ -114,9 +116,7 @@ public class WordSplitAct extends AppCompatActivity implements View.OnClickListe
             public String word;
             public String tag;
         }
-
     }
-
 }
 
 

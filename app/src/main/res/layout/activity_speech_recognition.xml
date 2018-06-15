@@ -49,14 +49,14 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/btn_bg"
                 android:textColor="@color/test_text_color"
-                android:text="start"/>
+                android:text="开始"/>
             <Button
                 android:id="@+id/btn_stop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/btn_bg"
                 android:textColor="@color/test_text_color"
-                android:text="stop"/>
+                android:text="结束"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

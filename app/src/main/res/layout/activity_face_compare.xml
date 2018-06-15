@@ -20,6 +20,19 @@
         android:layout_weight="2"
         android:orientation="horizontal">
 
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:background="@mipmap/image_bg"
+            android:paddingLeft="@dimen/text_padding"
+            android:paddingRight="@dimen/text_padding"
+            android:text="@string/face_compare_describle"
+            android:textColor="@color/test_text_color" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -32,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/btn_bg"
-                android:text="Image1"
+                android:text="图像1"
                 android:textColor="@color/test_text_color" />
 
             <Button
@@ -40,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/btn_bg"
-                android:text="Image2"
+                android:text="图像2"
                 android:textColor="@color/test_text_color" />
 
             <Button
@@ -49,20 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@mipmap/btn_bg"
-                android:text="compare"
+                android:text="比较"
                 android:textColor="@color/test_text_color" />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:layout_weight="4"
-            android:background="@mipmap/image_bg"
-            android:paddingLeft="@dimen/text_padding"
-            android:paddingRight="@dimen/text_padding"
-            android:text="@string/face_compare_describle"
-            android:textColor="@color/test_text_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,6 +73,7 @@
         android:layout_weight="1"
         android:background="@mipmap/image_bg"
         android:gravity="center">
+
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="wrap_content"
