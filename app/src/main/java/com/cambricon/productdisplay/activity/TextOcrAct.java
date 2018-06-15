@@ -19,6 +19,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -48,7 +49,6 @@ import java.util.List;
 
 public class TextOcrAct extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "TextOcrAct";
-    public android.support.v7.widget.Toolbar toolbar;
     private TextView et;
     private ImageView iv;
     private Button btn4ocr;
@@ -61,6 +61,8 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
     private static final int REQUEST_CHOOSE_PHOTO_CODE4OCR = 2;
     private TextDetector textDetector;
     private Bitmap bmDraw;
+    private Toolbar toolbar;
+    private TextView describe;
 
     Handler mHandler = new Handler() {
         @Override
@@ -122,7 +124,7 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
         //create TextDetector
         textDetector = new TextDetector(TextOcrAct.this);
         toolbar=findViewById(R.id.textocr_toolbar);
-
+        describe = findViewById(R.id.editText);
         btn4ocr = findViewById(R.id.btn4ocr);
 
         checkBlock = findViewById(R.id.checkBlock);
@@ -136,7 +138,7 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
 
         checkBlock.setChecked(true);
         iv = findViewById(R.id.imageView);
-        et = findViewById(R.id.editText);
+        et = findViewById(R.id.ocr_result);
         et.setTextIsSelectable(true);
 
         et.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -157,20 +159,34 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (data == null) {
-                Log.e(TAG, "data == null");
-                return;
-            }
-            final Uri selectedImage = data.getData();
-            Log.e(TAG, "select uri:" + selectedImage.toString());
+            String imgPath;
+//            if (data == null) {
+//                Log.e(TAG, "data == null");
+//                return;
+//            }
+            if (requestCode == REQUEST_CHOOSE_PHOTO_CODE4OCR) {
+                final Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getApplication().getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                imgPath = cursor.getString(columnIndex);
+                cursor.close();
+
+                Log.e(TAG, "select uri:" + selectedImage.toString());
             /*start OCR in a new thread*/
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    go(selectedImage);
-                }
-            }) {
-            }.start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        go(selectedImage);
+                    }
+                }) {
+                }.start();
+                Log.d(TAG, "imgPath = " + imgPath);
+                bmDraw = BitmapFactory.decodeFile(imgPath);
+                iv.setImageBitmap(bmDraw);
+            }
         }
     }
 
@@ -189,6 +205,7 @@ public class TextOcrAct extends AppCompatActivity implements View.OnClickListene
                 intent.setType("image/*");
                 requestCode = REQUEST_CHOOSE_PHOTO_CODE4OCR;
                 startActivityForResult(intent, requestCode);
+                describe.setVisibility(View.GONE);
                 break;
             case R.id.checkBlock:
                 if (checkBlock.isChecked()) {

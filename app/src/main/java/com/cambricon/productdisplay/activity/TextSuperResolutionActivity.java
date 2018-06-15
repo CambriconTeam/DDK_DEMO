@@ -9,6 +9,7 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,8 +20,11 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +50,7 @@ import java.util.Date;
  * Created by xiaoxiao on 18-6-12.
  */
 
-public class TextSuperResolutionActivity extends Activity{
+public class TextSuperResolutionActivity extends AppCompatActivity{
     private static final String LOG_TAG = "txtsr_demo";
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     private static final int REQUEST_IMAGE_SELECT = 200;
@@ -67,6 +71,8 @@ public class TextSuperResolutionActivity extends Activity{
     private Button btnExample;
     private Bitmap newbmp;
     private ImageView dstView;
+    private Toolbar toolbar;
+    private TextView describe;
     String result;
     TxtImageSuperResolution tsr;
 
@@ -85,6 +91,8 @@ public class TextSuperResolutionActivity extends Activity{
         mMyHandler = new Handler(mMyHandlerThread.getLooper(), mMyHandlerThread);
         ivCaptured = (ImageView) findViewById(R.id.iv_Captured);
         tvLabel = (TextView) findViewById(R.id.tv_Lable);
+        toolbar = (Toolbar) findViewById(R.id.txt_toolbar);
+        describe = (TextView) findViewById(R.id.editText);
         dstView = (ImageView) findViewById(R.id.dst);
         btnCamera = (Button) findViewById(R.id.btnCamera);
         btnCamera.setOnClickListener(new Button.OnClickListener() {
@@ -122,7 +130,7 @@ public class TextSuperResolutionActivity extends Activity{
             public void onClick(View v) {
                InputStream is = null;
               try {
-                    is = getAssets().open("hiai/Text/img.jpeg");
+                    is = getAssets().open("hiai/Text/img.jpg");
 
                 } catch (IOException e) {
                    e.printStackTrace();
@@ -131,10 +139,13 @@ public class TextSuperResolutionActivity extends Activity{
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 bmp = BitmapFactory.decodeStream(is,null,options);
                 ivCaptured.setImageBitmap(bmp);
+                describe.setVisibility(View.GONE);
                 mMyHandler.sendEmptyMessage(MSG_TSR);
                 Log.e("xiaoxiao","bmp"+bmp);
              }
         });
+
+        setActionBar();
 
         VisionBase.init(this, new ConnectionCallback() {
             @Override
@@ -153,7 +164,24 @@ public class TextSuperResolutionActivity extends Activity{
     }
 
     int resultcode;
-
+    /**
+     * 设置ActionBar
+     */
+    private void setActionBar() {
+        toolbar.setTitle(getString(R.string.txt_super_resolution));
+        setSupportActionBar(toolbar);
+        Drawable toolDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.toolbar_bg);
+        toolDrawable.setAlpha(50);
+        toolbar.setBackground(toolDrawable);
+        /*显示Home图标*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     private class MyHandlerThread extends HandlerThread implements Handler.Callback {
         public MyHandlerThread() {
@@ -242,6 +270,7 @@ public class TextSuperResolutionActivity extends Activity{
             Log.d(LOG_TAG, "imgPath = " + imgPath);
             bmp = BitmapFactory.decodeFile(imgPath);
             ivCaptured.setImageBitmap(bmp);
+            describe.setVisibility(View.GONE);
             btnsr.setEnabled(true);
             Log.d(LOG_TAG, "bitmap = " + imgPath);
         } else {

@@ -59,7 +59,9 @@
         <activity
             android:name=".activity.SingleChartActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.TextOcrAct" />
+        <activity
+            android:name=".activity.TextOcrAct"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.SegmentActivity"
             android:screenOrientation="landscape" />
@@ -94,7 +96,8 @@
         <activity android:name=".activity.FaceFeaturesDetectActivity" />
         <activity android:name=".activity.EntityDetectActivity" />
         <activity android:name=".activity.SpeechRecognitionActivity"></activity>
-        <activity android:name=".activity.TextSuperResolutionActivity"></activity>
+        <activity android:name=".activity.TextSuperResolutionActivity"
+                  android:screenOrientation="landscape"></activity>
 
     </application>
 

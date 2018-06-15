@@ -117,6 +117,8 @@
     <string name="super_resolution">图像超分辨率</string>
     <string name="face_parsing">人脸解析</string>
     <string name="head_pose">人脸朝向识别</string>
+    <string name="txt_super_resolution">文字图像超分</string>
+
     <string name="segment_message">人像分割是指的将图片中的人像和背景进行分离，分割结果表现为人像和背景区分呈现，人像区域为白色，背景为黑色。</string>
     <string name="label_detector_describle">图片分类标签是基于深度学习方法，识别图片中物体、场景、行为等信息，返回对应标签信息，如：花、鸟、鱼、虫、汽车、建筑等等，以应用于各类基于图片内容理解的智能业务，如图库照片自动分类整理、社交图片识别分享等。</string>
     <string name="aesthetics_score_describle">从多维度判断图像质量，为图像打分，所评估的分数，不仅能对图像的失焦、抖动等技术因素进行评价，还可以从歪斜、色彩、构图等角度评判主观“美”的感受。</string>
@@ -130,6 +132,7 @@
     <string name="world_split_describle">随着信息技术的发展，网络信息量暴增，文本信息得到快速增长，信息成几何级增长逐步成为当今社会的主要特征。为了提取文本关键信息，在搜索引擎等领域，使得分词变得尤为重要。通过分词，理解文本所要表达的正确含义。</string>
     <string name="face_compare_describle">通过识别并提取人脸特征，对人像进行高精度比对，给出置信度分数，判断对象是否为同一个人。使用人脸比对技术，可应用于实现对图库照片的智能分类管理等场景中。基于领先的端侧智能图像识别算法，对人脸识别准确度高，让应用更具最佳体验。</string>
     <string name="head_pose_describe">人脸朝向，是指人脸面部中间基准线（指向头顶）在面部平面中的指向，分为：无方向（无人）、向上、向右、向下、向左五种场景。</string>
+    <string name="text_super_resolution">对拍摄图片中的文字清晰度进行加强，以提升文字可识别度</string>
 </resources>
 
 

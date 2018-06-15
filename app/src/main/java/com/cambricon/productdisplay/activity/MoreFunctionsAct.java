@@ -174,7 +174,6 @@ public class MoreFunctionsAct extends AppCompatActivity {
                     case 16:
                         //人脸朝向识别
                         Intent intent16 = new Intent(MoreFunctionsAct.this,HeadPoseActivity.class);
-                        intent16.putExtra("BaseToolBarTitle","人脸朝向识别");
                         startActivity(intent16);
                         break;
                     case 17:
@@ -190,7 +189,7 @@ public class MoreFunctionsAct extends AppCompatActivity {
                         startActivity(intent18);
                         break;
                     case 19:
-                        //实体识别
+                        //语音识别
                         Intent intent19 = new Intent(MoreFunctionsAct.this,SpeechRecognitionActivity.class);
                         intent19.putExtra("BaseToolBarTitle", getString(R.string.speech_recognition));
                         startActivity(intent19);
@@ -198,7 +197,6 @@ public class MoreFunctionsAct extends AppCompatActivity {
                     case 20:
                         //文字图像超分
                         Intent intent20 = new Intent(MoreFunctionsAct.this,TextSuperResolutionActivity.class);
-                        intent20.putExtra("BaseToolBarTitle", getString(R.string.speech_recognition));
                         startActivity(intent20);
                         break;
                 }
